@@ -2,11 +2,11 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://gnl00.github.io</id>
     <title>Gnl&apos;s Blog</title>
-    <updated>2020-04-13T03:43:04.520Z</updated>
+    <updated>2020-04-13T03:47:45.184Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://gnl00.github.io"/>
     <link rel="self" href="https://gnl00.github.io/atom.xml"/>
-    <subtitle>温故而知新</subtitle>
+    <subtitle>Hi, there</subtitle>
     <logo>https://gnl00.github.io/images/avatar.png</logo>
     <icon>https://gnl00.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, Gnl&apos;s Blog</rights>
