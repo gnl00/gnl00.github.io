@@ -1,1 +1,0 @@
-import{_ as e,c as a,o as t,a as r}from"./app.d8a09d34.js";const p='{"title":"Middleware","description":"","frontmatter":{},"headers":[{"level":2,"title":"Contents","slug":"contents"}],"relativePath":"posts/mw/index.md"}',i={},n=r("",3),s=[n];function c(d,l,o,_,h,f){return t(),a("div",null,s)}var u=e(i,[["render",c]]);export{p as __pageData,u as default};

@@ -1,1 +1,0 @@
-import{_ as e,c as a,o as t,a as s}from"./app.d8a09d34.js";const u='{"title":"Database","description":"","frontmatter":{},"headers":[{"level":2,"title":"Contents","slug":"contents"}],"relativePath":"posts/db/index.md"}',n={},r=s("",4),i=[r];function o(d,_,c,l,h,f){return t(),a("div",null,i)}var b=e(n,[["render",o]]);export{u as __pageData,b as default};

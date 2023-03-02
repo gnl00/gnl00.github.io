@@ -1,1 +1,0 @@
-import{_ as e,c as a,o as t,a as i}from"./app.d8a09d34.js";const m='{"title":"Renew","description":"","frontmatter":{},"headers":[{"level":2,"title":"Contents","slug":"contents"}],"relativePath":"posts/renew/index.md"}',n={},r=i("",4),s=[r];function l(o,d,c,h,_,f){return t(),a("div",null,s)}var u=e(n,[["render",l]]);export{m as __pageData,u as default};

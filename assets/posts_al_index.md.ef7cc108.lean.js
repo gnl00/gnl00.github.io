@@ -1,1 +1,0 @@
-import{_ as t,c as e,o as a,a as r}from"./app.d8a09d34.js";const f='{"title":"Algorithm","description":"","frontmatter":{},"headers":[{"level":2,"title":"Contents","slug":"contents"}],"relativePath":"posts/al/index.md"}',o={},n=r("",4),i=[n];function s(_,l,c,h,d,m){return a(),e("div",null,i)}var u=t(o,[["render",s]]);export{f as __pageData,u as default};
