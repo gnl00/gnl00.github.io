@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Redis 配置详解 | Gnl</title>
+    <meta name="description" content="Redis 配置详解">
+    <link rel="preload stylesheet" href="/assets/style.dab0c050.css" as="style">
+    
+    <script type="module" src="/assets/app.8dec356f.js"></script>
+    <link rel="preload" href="/assets/inter-roman-latin.2ed14f66.woff2" as="font" type="font/woff2" crossorigin="">
+    <link rel="modulepreload" href="/assets/chunks/framework.519d889f.js">
+    <link rel="modulepreload" href="/assets/chunks/theme.0e676aed.js">
+    <link rel="modulepreload" href="/assets/chunks/c4Diagram-60acd026.1dd1e244.js">
+    <link rel="modulepreload" href="/assets/chunks/flowDiagram-92806404.ce895bb2.js">
+    <link rel="modulepreload" href="/assets/chunks/flowDiagram-v2-6d4618e9.7065ecb6.js">
+    <link rel="modulepreload" href="/assets/chunks/erDiagram-9c70e2d1.107e931d.js">
+    <link rel="modulepreload" href="/assets/chunks/gitGraphDiagram-40ad929d.436cb271.js">
+    <link rel="modulepreload" href="/assets/chunks/ganttDiagram-adf6d212.0f31a81c.js">
+    <link rel="modulepreload" href="/assets/chunks/infoDiagram-cf09b946.4cb42a78.js">
+    <link rel="modulepreload" href="/assets/chunks/pieDiagram-cce2db57.0d9d2871.js">
+    <link rel="modulepreload" href="/assets/chunks/quadrantDiagram-eaf6be26.6ba59b2f.js">
+    <link rel="modulepreload" href="/assets/chunks/xychartDiagram-85b81823.98af4da9.js">
+    <link rel="modulepreload" href="/assets/chunks/requirementDiagram-bdf860d6.a4f62229.js">
+    <link rel="modulepreload" href="/assets/chunks/sequenceDiagram-90be091c.c3a5367a.js">
+    <link rel="modulepreload" href="/assets/chunks/classDiagram-0e94aa92.a3577f51.js">
+    <link rel="modulepreload" href="/assets/chunks/classDiagram-v2-5699522c.83587abf.js">
+    <link rel="modulepreload" href="/assets/chunks/stateDiagram-ab304aae.17856a0f.js">
+    <link rel="modulepreload" href="/assets/chunks/stateDiagram-v2-b8780ab9.3a25a09a.js">
+    <link rel="modulepreload" href="/assets/chunks/journeyDiagram-dda15a26.78d8164b.js">
+    <link rel="modulepreload" href="/assets/chunks/flowchart-elk-definition-3970a277.87256d9f.js">
+    <link rel="modulepreload" href="/assets/chunks/timeline-definition-82529010.e40e241e.js">
+    <link rel="modulepreload" href="/assets/chunks/mindmap-definition-35625031.57849d72.js">
+    <link rel="modulepreload" href="/assets/chunks/sankeyDiagram-9588997f.4c0895cb.js">
+    <link rel="modulepreload" href="/assets/chunks/virtual_mermaid-config.ade1a5ba.js">
+    <link rel="modulepreload" href="/assets/chunks/giscus-2a044aea.497f0bd4.js">
+    <link rel="modulepreload" href="/assets/posts_db_Redis_Redis 配置详解.md.559e08b6.lean.js">
+    <script id="check-dark-mode">(()=>{const e=localStorage.getItem("vitepress-theme-appearance")||"auto",a=window.matchMedia("(prefers-color-scheme: dark)").matches;(!e||e==="auto"?a:e==="dark")&&document.documentElement.classList.add("dark")})();</script>
+    <script id="check-mac-os">document.documentElement.classList.toggle("mac",/Mac|iPhone|iPod|iPad/i.test(navigator.platform));</script>
+    <script>import("/pagefind/pagefind.js").then(i=>{window.__pagefind__=i,i.init()}).catch(()=>{});</script>
+  </head>
+  <body><!--v-if--><!--teleport anchor-->
+    <div id="app"><div class="Layout" data-v-af5a5a9a data-v-ae5c84bb><!--[--><!--[--><!--]--><!----><!--[--><div style="display:none;" class="theme-blog-popover" data-pagefind-ignore="all" data-v-5c56a737><div class="header" data-v-5c56a737><div class="title-wrapper" data-v-5c56a737><i class="el-icon" style="font-size:20px;" data-v-5c56a737><!--[--><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" data-v-5c56a737><path fill="currentColor" d="M288 128h608L736 384l160 256H288v320h-96V64h96v64z"></path></svg><!--]--></i><span class="title" data-v-5c56a737></span></div><i class="el-icon close-icon" style="font-size:20px;" data-v-5c56a737><!--[--><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" data-v-5c56a737><path fill="currentColor" d="M512 64a448 448 0 1 1 0 896 448 448 0 0 1 0-896zm0 393.664L407.936 353.6a38.4 38.4 0 1 0-54.336 54.336L457.664 512 353.6 616.064a38.4 38.4 0 1 0 54.336 54.336L512 566.336 616.064 670.4a38.4 38.4 0 1 0 54.336-54.336L566.336 512 670.4 407.936a38.4 38.4 0 1 0-54.336-54.336L512 457.664z"></path></svg><!--]--></i></div><!----><div class="footer content" data-v-5c56a737><!--[--><!--]--></div></div><div style="display:none;" class="theme-blog-popover-close" data-v-5c56a737><i class="el-icon" style="font-size:20px;" data-v-5c56a737><!--[--><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" data-v-5c56a737><path fill="currentColor" d="M288 128h608L736 384l160 256H288v320h-96V64h96v64z"></path></svg><!--]--></i></div><!--]--><!--]--><!--[--><span tabindex="-1" data-v-0f60ec36></span><a href="#VPContent" class="VPSkipLink visually-hidden" data-v-0f60ec36> Skip to content </a><!--]--><!----><header class="VPNav" data-v-ae5c84bb data-v-ae24b3ad><div class="VPNavBar" data-v-ae24b3ad data-v-a0fd61f4><div class="container" data-v-a0fd61f4><div class="title" data-v-a0fd61f4><div class="VPNavBarTitle" data-v-a0fd61f4 data-v-86d1bed8><a class="title" href="/" data-v-86d1bed8><!--[--><!--]--><!--[--><img class="VPImage logo" src="/logo-transform.png" alt data-v-8426fc1a><!--]--><!--[-->Gnl<!--]--><!--[--><!--]--></a></div></div><div class="content" data-v-a0fd61f4><div class="curtain" data-v-a0fd61f4></div><div class="content-body" data-v-a0fd61f4><!--[--><!--]--><div class="blog-search search" data-pagefind-ignore="all" data-v-a0fd61f4 style="--54fbd49d:1;" data-v-bebd53ce><div class="nav-search-btn-wait" data-v-bebd53ce><svg width="14" height="14" viewBox="0 0 20 20" data-v-bebd53ce><path d="M14.386 14.386l4.0877 4.0877-4.0877-4.0877c-2.9418 2.9419-7.7115 2.9419-10.6533 0-2.9419-2.9418-2.9419-7.7115 0-10.6533 2.9418-2.9419 7.7115-2.9419 10.6533 0 2.9419 2.9418 2.9419 7.7115 0 10.6533z" stroke="currentColor" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round" data-v-bebd53ce></path></svg><span class="search-tip" data-v-bebd53ce>Search</span><span class="metaKey" data-v-bebd53ce> K </span></div><!--teleport start--><!--teleport end--></div><nav aria-labelledby="main-nav-aria-label" class="VPNavBarMenu menu" data-v-a0fd61f4 data-v-7f418b0f><span id="main-nav-aria-label" class="visually-hidden" data-v-7f418b0f>Main Navigation</span><!--[--><!--[--><a class="VPLink link VPNavBarMenuLink" href="/" tabindex="0" data-v-7f418b0f data-v-42ef59de><!--[--><span data-v-42ef59de>首页</span><!--]--></a><!--]--><!--[--><div class="VPFlyout VPNavBarMenuGroup" data-v-7f418b0f data-v-9c007e85><button type="button" class="button" aria-haspopup="true" aria-expanded="false" data-v-9c007e85><span class="text" data-v-9c007e85><!----><span data-v-9c007e85>前端</span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" viewbox="0 0 24 24" class="text-icon" data-v-9c007e85><path d="M12,16c-0.3,0-0.5-0.1-0.7-0.3l-6-6c-0.4-0.4-0.4-1,0-1.4s1-0.4,1.4,0l5.3,5.3l5.3-5.3c0.4-0.4,1-0.4,1.4,0s0.4,1,0,1.4l-6,6C12.5,15.9,12.3,16,12,16z"></path></svg></span></button><div class="menu" data-v-9c007e85><div class="VPMenu" data-v-9c007e85 data-v-e7ea1737><div class="items" data-v-e7ea1737><!--[--><!--[--><div class="VPMenuLink" data-v-e7ea1737 data-v-43f1e123><a class="VPLink link" href="/posts/fe/%E9%A1%B9%E7%9B%AE%E9%85%8D%E7%BD%AE.html" data-v-43f1e123><!--[-->前端项目工程化<!--]--></a></div><!--]--><!--[--><div class="VPMenuLink" data-v-e7ea1737 data-v-43f1e123><a class="VPLink link" href="/posts/fe/JavaScript/JavaScript.html" data-v-43f1e123><!--[-->JavaScript<!--]--></a></div><!--]--><!--[--><div class="VPMenuLink" data-v-e7ea1737 data-v-43f1e123><a class="VPLink link" href="/posts/fe/TypeScript/TypeScript.html" data-v-43f1e123><!--[-->TypeScript<!--]--></a></div><!--]--><!--[--><div class="VPMenuLink" data-v-e7ea1737 data-v-43f1e123><a class="VPLink link" href="/posts/fe/React/React.html" data-v-43f1e123><!--[-->React<!--]--></a></div><!--]--><!--[--><div class="VPMenuLink" data-v-e7ea1737 data-v-43f1e123><a class="VPLink link" href="/posts/fe/Vuejs/Vuejs.html" data-v-43f1e123><!--[-->Vue.js<!--]--></a></div><!--]--><!--]--></div><!--[--><!--]--></div></div></div><!--]--><!--[--><div class="VPFlyout VPNavBarMenuGroup" data-v-7f418b0f data-v-9c007e85><button type="button" class="button" aria-haspopup="true" aria-expanded="false" data-v-9c007e85><span class="text" data-v-9c007e85><!----><span data-v-9c007e85>后端</span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" viewbox="0 0 24 24" class="text-icon" data-v-9c007e85><path d="M12,16c-0.3,0-0.5-0.1-0.7-0.3l-6-6c-0.4-0.4-0.4-1,0-1.4s1-0.4,1.4,0l5.3,5.3l5.3-5.3c0.4-0.4,1-0.4,1.4,0s0.4,1,0,1.4l-6,6C12.5,15.9,12.3,16,12,16z"></path></svg></span></button><div class="menu" data-v-9c007e85><div class="VPMenu" data-v-9c007e85 data-v-e7ea1737><div class="items" data-v-e7ea1737><!--[--><!--[--><div class="VPMenuLink" data-v-e7ea1737 data-v-43f1e123><a class="VPLink link" href="/posts/be/Java/Java.html" data-v-43f1e123><!--[-->Java<!--]--></a></div><!--]--><!--[--><div class="VPMenuLink" data-v-e7ea1737 data-v-43f1e123><a class="VPLink link" href="/posts/be/Spring/Spring.html" data-v-43f1e123><!--[-->Spring<!--]--></a></div><!--]--><!--[--><div class="VPMenuLink" data-v-e7ea1737 data-v-43f1e123><a class="VPLink link" href="/posts/be/SpringBoot/SpringBoot.html" data-v-43f1e123><!--[-->SpringBoot<!--]--></a></div><!--]--><!--[--><div class="VPMenuLink" data-v-e7ea1737 data-v-43f1e123><a class="VPLink link" href="/posts/be/SpringCloud/SpringCloud.html" data-v-43f1e123><!--[-->SpringCloud<!--]--></a></div><!--]--><!--[--><div class="VPMenuLink" data-v-e7ea1737 data-v-43f1e123><a class="VPLink link" href="/posts/be/Dubbo/Dubbo.html" data-v-43f1e123><!--[-->Dubbo<!--]--></a></div><!--]--><!--]--></div><!--[--><!--]--></div></div></div><!--]--><!--[--><div class="VPFlyout VPNavBarMenuGroup" data-v-7f418b0f data-v-9c007e85><button type="button" class="button" aria-haspopup="true" aria-expanded="false" data-v-9c007e85><span class="text" data-v-9c007e85><!----><span data-v-9c007e85>数据库</span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" viewbox="0 0 24 24" class="text-icon" data-v-9c007e85><path d="M12,16c-0.3,0-0.5-0.1-0.7-0.3l-6-6c-0.4-0.4-0.4-1,0-1.4s1-0.4,1.4,0l5.3,5.3l5.3-5.3c0.4-0.4,1-0.4,1.4,0s0.4,1,0,1.4l-6,6C12.5,15.9,12.3,16,12,16z"></path></svg></span></button><div class="menu" data-v-9c007e85><div class="VPMenu" data-v-9c007e85 data-v-e7ea1737><div class="items" data-v-e7ea1737><!--[--><!--[--><div class="VPMenuLink" data-v-e7ea1737 data-v-43f1e123><a class="VPLink link" href="/posts/db/MySQL/MySQL.html" data-v-43f1e123><!--[-->MySQL<!--]--></a></div><!--]--><!--[--><div class="VPMenuLink" data-v-e7ea1737 data-v-43f1e123><a class="VPLink link" href="/posts/db/PostgreSQL/PostgreSQL.html" data-v-43f1e123><!--[-->PostgreSQL<!--]--></a></div><!--]--><!--[--><div class="VPMenuLink" data-v-e7ea1737 data-v-43f1e123><a class="VPLink link" href="/posts/db/Redis/Redis.html" data-v-43f1e123><!--[-->Redis<!--]--></a></div><!--]--><!--]--></div><!--[--><!--]--></div></div></div><!--]--><!--[--><div class="VPFlyout VPNavBarMenuGroup" data-v-7f418b0f data-v-9c007e85><button type="button" class="button" aria-haspopup="true" aria-expanded="false" data-v-9c007e85><span class="text" data-v-9c007e85><!----><span data-v-9c007e85>中间件</span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" viewbox="0 0 24 24" class="text-icon" data-v-9c007e85><path d="M12,16c-0.3,0-0.5-0.1-0.7-0.3l-6-6c-0.4-0.4-0.4-1,0-1.4s1-0.4,1.4,0l5.3,5.3l5.3-5.3c0.4-0.4,1-0.4,1.4,0s0.4,1,0,1.4l-6,6C12.5,15.9,12.3,16,12,16z"></path></svg></span></button><div class="menu" data-v-9c007e85><div class="VPMenu" data-v-9c007e85 data-v-e7ea1737><div class="items" data-v-e7ea1737><!--[--><!--[--><div class="VPMenuLink" data-v-e7ea1737 data-v-43f1e123><a class="VPLink link" href="/posts/mw/Netty/Netty.html" data-v-43f1e123><!--[-->Netty<!--]--></a></div><!--]--><!--[--><div class="VPMenuLink" data-v-e7ea1737 data-v-43f1e123><a class="VPLink link" href="/posts/mw/RocketMQ/RocketMQ/RocketMQ.html" data-v-43f1e123><!--[-->RocketMQ<!--]--></a></div><!--]--><!--[--><div class="VPMenuLink" data-v-e7ea1737 data-v-43f1e123><a class="VPLink link" href="/posts/mw/Kafka/Kafka.html" data-v-43f1e123><!--[-->Kafka<!--]--></a></div><!--]--><!--[--><div class="VPMenuLink" data-v-e7ea1737 data-v-43f1e123><a class="VPLink link" href="/posts/mw/Elesticsearch/Elesticsearch.html" data-v-43f1e123><!--[-->Elesticsearch<!--]--></a></div><!--]--><!--]--></div><!--[--><!--]--></div></div></div><!--]--><!--[--><div class="VPFlyout VPNavBarMenuGroup" data-v-7f418b0f data-v-9c007e85><button type="button" class="button" aria-haspopup="true" aria-expanded="false" data-v-9c007e85><span class="text" data-v-9c007e85><!----><span data-v-9c007e85>DevOps</span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" viewbox="0 0 24 24" class="text-icon" data-v-9c007e85><path d="M12,16c-0.3,0-0.5-0.1-0.7-0.3l-6-6c-0.4-0.4-0.4-1,0-1.4s1-0.4,1.4,0l5.3,5.3l5.3-5.3c0.4-0.4,1-0.4,1.4,0s0.4,1,0,1.4l-6,6C12.5,15.9,12.3,16,12,16z"></path></svg></span></button><div class="menu" data-v-9c007e85><div class="VPMenu" data-v-9c007e85 data-v-e7ea1737><div class="items" data-v-e7ea1737><!--[--><!--[--><div class="VPMenuLink" data-v-e7ea1737 data-v-43f1e123><a class="VPLink link" href="/posts/mw/Docker/Docker.html" data-v-43f1e123><!--[-->Docker<!--]--></a></div><!--]--><!--[--><div class="VPMenuLink" data-v-e7ea1737 data-v-43f1e123><a class="VPLink link" href="/posts/mw/Kubernetes/Kubernetes.html" data-v-43f1e123><!--[-->Kubernetes<!--]--></a></div><!--]--><!--[--><div class="VPMenuLink" data-v-e7ea1737 data-v-43f1e123><a class="VPLink link" href="/posts/mw/GitLab/GitLab.html" data-v-43f1e123><!--[-->GitLab<!--]--></a></div><!--]--><!--]--></div><!--[--><!--]--></div></div></div><!--]--><!--[--><a class="VPLink link VPNavBarMenuLink" href="/about.html" tabindex="0" data-v-7f418b0f data-v-42ef59de><!--[--><span data-v-42ef59de>关于</span><!--]--></a><!--]--><!--]--></nav><!----><div class="VPNavBarAppearance appearance" data-v-a0fd61f4 data-v-e6aabb21><button class="VPSwitch VPSwitchAppearance" type="button" role="switch" title="toggle dark mode" aria-checked="false" data-v-e6aabb21 data-v-ce54a7d1 data-v-b1685198><span class="check" data-v-b1685198><span class="icon" data-v-b1685198><!--[--><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" viewbox="0 0 24 24" class="sun" data-v-ce54a7d1><path d="M12,18c-3.3,0-6-2.7-6-6s2.7-6,6-6s6,2.7,6,6S15.3,18,12,18zM12,8c-2.2,0-4,1.8-4,4c0,2.2,1.8,4,4,4c2.2,0,4-1.8,4-4C16,9.8,14.2,8,12,8z"></path><path d="M12,4c-0.6,0-1-0.4-1-1V1c0-0.6,0.4-1,1-1s1,0.4,1,1v2C13,3.6,12.6,4,12,4z"></path><path d="M12,24c-0.6,0-1-0.4-1-1v-2c0-0.6,0.4-1,1-1s1,0.4,1,1v2C13,23.6,12.6,24,12,24z"></path><path d="M5.6,6.6c-0.3,0-0.5-0.1-0.7-0.3L3.5,4.9c-0.4-0.4-0.4-1,0-1.4s1-0.4,1.4,0l1.4,1.4c0.4,0.4,0.4,1,0,1.4C6.2,6.5,5.9,6.6,5.6,6.6z"></path><path d="M19.8,20.8c-0.3,0-0.5-0.1-0.7-0.3l-1.4-1.4c-0.4-0.4-0.4-1,0-1.4s1-0.4,1.4,0l1.4,1.4c0.4,0.4,0.4,1,0,1.4C20.3,20.7,20,20.8,19.8,20.8z"></path><path d="M3,13H1c-0.6,0-1-0.4-1-1s0.4-1,1-1h2c0.6,0,1,0.4,1,1S3.6,13,3,13z"></path><path d="M23,13h-2c-0.6,0-1-0.4-1-1s0.4-1,1-1h2c0.6,0,1,0.4,1,1S23.6,13,23,13z"></path><path d="M4.2,20.8c-0.3,0-0.5-0.1-0.7-0.3c-0.4-0.4-0.4-1,0-1.4l1.4-1.4c0.4-0.4,1-0.4,1.4,0s0.4,1,0,1.4l-1.4,1.4C4.7,20.7,4.5,20.8,4.2,20.8z"></path><path d="M18.4,6.6c-0.3,0-0.5-0.1-0.7-0.3c-0.4-0.4-0.4-1,0-1.4l1.4-1.4c0.4-0.4,1-0.4,1.4,0s0.4,1,0,1.4l-1.4,1.4C18.9,6.5,18.6,6.6,18.4,6.6z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" viewbox="0 0 24 24" class="moon" data-v-ce54a7d1><path d="M12.1,22c-0.3,0-0.6,0-0.9,0c-5.5-0.5-9.5-5.4-9-10.9c0.4-4.8,4.2-8.6,9-9c0.4,0,0.8,0.2,1,0.5c0.2,0.3,0.2,0.8-0.1,1.1c-2,2.7-1.4,6.4,1.3,8.4c2.1,1.6,5,1.6,7.1,0c0.3-0.2,0.7-0.3,1.1-0.1c0.3,0.2,0.5,0.6,0.5,1c-0.2,2.7-1.5,5.1-3.6,6.8C16.6,21.2,14.4,22,12.1,22zM9.3,4.4c-2.9,1-5,3.6-5.2,6.8c-0.4,4.4,2.8,8.3,7.2,8.7c2.1,0.2,4.2-0.4,5.8-1.8c1.1-0.9,1.9-2.1,2.4-3.4c-2.5,0.9-5.3,0.5-7.5-1.1C9.2,11.4,8.1,7.7,9.3,4.4z"></path></svg><!--]--></span></span></button></div><!----><div class="VPFlyout VPNavBarExtra extra" data-v-a0fd61f4 data-v-40855f84 data-v-9c007e85><button type="button" class="button" aria-haspopup="true" aria-expanded="false" aria-label="extra navigation" data-v-9c007e85><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" viewbox="0 0 24 24" class="icon" data-v-9c007e85><circle cx="12" cy="12" r="2"></circle><circle cx="19" cy="12" r="2"></circle><circle cx="5" cy="12" r="2"></circle></svg></button><div class="menu" data-v-9c007e85><div class="VPMenu" data-v-9c007e85 data-v-e7ea1737><!----><!--[--><!--[--><!----><div class="group" data-v-40855f84><div class="item appearance" data-v-40855f84><p class="label" data-v-40855f84>Appearance</p><div class="appearance-action" data-v-40855f84><button class="VPSwitch VPSwitchAppearance" type="button" role="switch" title="toggle dark mode" aria-checked="false" data-v-40855f84 data-v-ce54a7d1 data-v-b1685198><span class="check" data-v-b1685198><span class="icon" data-v-b1685198><!--[--><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" viewbox="0 0 24 24" class="sun" data-v-ce54a7d1><path d="M12,18c-3.3,0-6-2.7-6-6s2.7-6,6-6s6,2.7,6,6S15.3,18,12,18zM12,8c-2.2,0-4,1.8-4,4c0,2.2,1.8,4,4,4c2.2,0,4-1.8,4-4C16,9.8,14.2,8,12,8z"></path><path d="M12,4c-0.6,0-1-0.4-1-1V1c0-0.6,0.4-1,1-1s1,0.4,1,1v2C13,3.6,12.6,4,12,4z"></path><path d="M12,24c-0.6,0-1-0.4-1-1v-2c0-0.6,0.4-1,1-1s1,0.4,1,1v2C13,23.6,12.6,24,12,24z"></path><path d="M5.6,6.6c-0.3,0-0.5-0.1-0.7-0.3L3.5,4.9c-0.4-0.4-0.4-1,0-1.4s1-0.4,1.4,0l1.4,1.4c0.4,0.4,0.4,1,0,1.4C6.2,6.5,5.9,6.6,5.6,6.6z"></path><path d="M19.8,20.8c-0.3,0-0.5-0.1-0.7-0.3l-1.4-1.4c-0.4-0.4-0.4-1,0-1.4s1-0.4,1.4,0l1.4,1.4c0.4,0.4,0.4,1,0,1.4C20.3,20.7,20,20.8,19.8,20.8z"></path><path d="M3,13H1c-0.6,0-1-0.4-1-1s0.4-1,1-1h2c0.6,0,1,0.4,1,1S3.6,13,3,13z"></path><path d="M23,13h-2c-0.6,0-1-0.4-1-1s0.4-1,1-1h2c0.6,0,1,0.4,1,1S23.6,13,23,13z"></path><path d="M4.2,20.8c-0.3,0-0.5-0.1-0.7-0.3c-0.4-0.4-0.4-1,0-1.4l1.4-1.4c0.4-0.4,1-0.4,1.4,0s0.4,1,0,1.4l-1.4,1.4C4.7,20.7,4.5,20.8,4.2,20.8z"></path><path d="M18.4,6.6c-0.3,0-0.5-0.1-0.7-0.3c-0.4-0.4-0.4-1,0-1.4l1.4-1.4c0.4-0.4,1-0.4,1.4,0s0.4,1,0,1.4l-1.4,1.4C18.9,6.5,18.6,6.6,18.4,6.6z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" viewbox="0 0 24 24" class="moon" data-v-ce54a7d1><path d="M12.1,22c-0.3,0-0.6,0-0.9,0c-5.5-0.5-9.5-5.4-9-10.9c0.4-4.8,4.2-8.6,9-9c0.4,0,0.8,0.2,1,0.5c0.2,0.3,0.2,0.8-0.1,1.1c-2,2.7-1.4,6.4,1.3,8.4c2.1,1.6,5,1.6,7.1,0c0.3-0.2,0.7-0.3,1.1-0.1c0.3,0.2,0.5,0.6,0.5,1c-0.2,2.7-1.5,5.1-3.6,6.8C16.6,21.2,14.4,22,12.1,22zM9.3,4.4c-2.9,1-5,3.6-5.2,6.8c-0.4,4.4,2.8,8.3,7.2,8.7c2.1,0.2,4.2-0.4,5.8-1.8c1.1-0.9,1.9-2.1,2.4-3.4c-2.5,0.9-5.3,0.5-7.5-1.1C9.2,11.4,8.1,7.7,9.3,4.4z"></path></svg><!--]--></span></span></button></div></div></div><!----><!--]--><!--]--></div></div></div><!--[--><!--]--><button type="button" class="VPNavBarHamburger hamburger" aria-label="mobile navigation" aria-expanded="false" aria-controls="VPNavScreen" data-v-a0fd61f4 data-v-e5dd9c1c><span class="container" data-v-e5dd9c1c><span class="top" data-v-e5dd9c1c></span><span class="middle" data-v-e5dd9c1c></span><span class="bottom" data-v-e5dd9c1c></span></span></button></div></div></div></div><!----></header><div class="VPLocalNav fixed reached-top" data-v-ae5c84bb data-v-79c8c1df><!----><div class="VPLocalNavOutlineDropdown" style="--vp-vh:0px;" data-v-79c8c1df data-v-1c15a60a><button data-v-1c15a60a>Return to top</button><!----></div></div><!----><div class="VPContent" id="VPContent" data-pagefind-body data-v-ae5c84bb data-v-669faec9><div class="VPDoc has-aside" data-v-669faec9 data-v-6b87e69f><!--[--><!--]--><div class="container" data-v-6b87e69f><div class="aside" data-v-6b87e69f><div class="aside-curtain" data-v-6b87e69f></div><div class="aside-container" data-v-6b87e69f><div class="aside-content" data-v-6b87e69f><div class="VPDocAside" data-v-6b87e69f data-v-3f215769><!--[--><!--]--><!--[--><!--]--><div class="VPDocAsideOutline" role="navigation" data-v-3f215769 data-v-d330b1bb><div class="content" data-v-d330b1bb><div class="outline-marker" data-v-d330b1bb></div><div class="outline-title" role="heading" aria-level="2" data-v-d330b1bb>On this page</div><nav aria-labelledby="doc-outline-aria-label" data-v-d330b1bb><span class="visually-hidden" id="doc-outline-aria-label" data-v-d330b1bb> Table of Contents for current page </span><ul class="root" data-v-d330b1bb data-v-d0ee3533><!--[--><!--]--></ul></nav></div></div><!--[--><!--]--><div class="spacer" data-v-3f215769></div><!--[--><!--]--><!----><!--[--><!--]--><!--[--><!--]--></div></div></div></div><div class="content" data-v-6b87e69f><div class="content-container" data-v-6b87e69f><!--[--><!--[--><!--[--><!--[--><!--]--><!----><!----><!--]--><!--]--><!--]--><!----><main class="main" data-v-6b87e69f><div style="position:relative;" class="vp-doc _posts_db_Redis_Redis%20%E9%85%8D%E7%BD%AE%E8%AF%A6%E8%A7%A3" data-v-6b87e69f><div><h1 id="redis-配置详解" tabindex="-1">Redis 配置详解 <a class="header-anchor" href="#redis-配置详解" aria-label="Permalink to &quot;Redis 配置详解&quot;">​</a></h1><h2 id="前言" tabindex="-1">前言 <a class="header-anchor" href="#前言" aria-label="Permalink to &quot;前言&quot;">​</a></h2><blockquote><p>Redis 配置文件会发现一个词 “ASAP” 经常出现在文件中，是 &quot;As Soon As Possible&quot; 的缩写</p></blockquote><h2 id="线程与-io" tabindex="-1">线程与 IO <a class="header-anchor" href="#线程与-io" aria-label="Permalink to &quot;线程与 IO&quot;">​</a></h2><blockquote><p>Redis 基本上可以说是单线程运行的，除了某些如 <code>UNLINK</code> （删除）以及慢 IO 访问等需要其他需要多线程访问的情况。</p></blockquote><blockquote><p>Redis 目前可以使用不同的读写线程来进行读写操作。由于写入操作比较慢，Redis 通常使用管道以加速每个核心的写入性能，并且面对大量的写入场景会启用多个线程实例。</p></blockquote><br><h2 id="数据持久化" tabindex="-1">数据持久化 <a class="header-anchor" href="#数据持久化" aria-label="Permalink to &quot;数据持久化&quot;">​</a></h2><h3 id="rdb" tabindex="-1">RDB <a class="header-anchor" href="#rdb" aria-label="Permalink to &quot;RDB&quot;">​</a></h3><h4 id="同步策略" tabindex="-1">同步策略 <a class="header-anchor" href="#同步策略" aria-label="Permalink to &quot;同步策略&quot;">​</a></h4><blockquote><p>Save the DB to disk.</p><p><code>save &lt;seconds&gt; &lt;changes&gt; [&lt;seconds&gt; &lt;changes&gt; ...]</code></p><p>Redis will save the DB if the given number of seconds elapsed and it surpassed the given number of write operations against the DB.</p><p>Snapshotting can be completely disabled with a single empty string argument</p><p>as in following example:</p><p><code>save &quot;&quot;</code></p><p>Unless specified otherwise, by default Redis will save the DB:</p><ul><li>After 3600 seconds (an hour) if at least 1 change was performed</li><li>After 300 seconds (5 minutes) if at least 100 changes were performed</li><li>After 60 seconds if at least 10000 changes were performed</li></ul><p>You can set these explicitly by uncommenting the following line.</p><p><code>save 3600 1 300 100 60 10000</code></p></blockquote><h4 id="名称与路径" tabindex="-1">名称与路径 <a class="header-anchor" href="#名称与路径" aria-label="Permalink to &quot;名称与路径&quot;">​</a></h4><blockquote><p>The filename where to dump the DB</p><p><code>dbfilename dump.rdb</code></p><p>The working directory.</p><p>The DB will be written inside this directory, with the filename specified above using the &#39;dbfilename&#39; configuration directive. The Append Only File will also be created inside this directory.</p><p>Note that you must specify a directory here, not a file name.</p><p><code>dir /usr/local/var/db/redis/</code></p></blockquote><h4 id="错误恢复" tabindex="-1">错误恢复 <a class="header-anchor" href="#错误恢复" aria-label="Permalink to &quot;错误恢复&quot;">​</a></h4><div class="language-conf vp-adaptive-theme"><button title="Copy Code" class="copy"></button><span class="lang">conf</span><pre class="shiki github-dark vp-code-dark"><code><span class="line"><span style="color:#e1e4e8;"># 默认情况下，如果开启了 RDB 快照，且最近一次 RDB 后台保存失败，就会停止写操作</span></span>
+<span class="line"><span style="color:#e1e4e8;">#</span></span>
+<span class="line"><span style="color:#e1e4e8;"># 这会以一种强硬的方式让用户知道，数据没能正确的在磁盘上进行持久化</span></span>
+<span class="line"><span style="color:#e1e4e8;">#</span></span>
+<span class="line"><span style="color:#e1e4e8;"># 如果后台执行保存工作的进程重新运行，Redis 会重新自动允许写操作发生</span></span>
+<span class="line"><span style="color:#e1e4e8;">#</span></span>
+<span class="line"><span style="color:#e1e4e8;"># 如果设置了自定义的监视器来监视 Redis 服务器的持久化，将此功能关闭后，即使</span></span>
+<span class="line"><span style="color:#e1e4e8;"># 磁盘写入出现问题 Redis 也会照常工作</span></span>
+<span class="line"><span style="color:#e1e4e8;">stop-writes-on-bgsave-error yes</span></span></code></pre><pre class="shiki github-light vp-code-light"><code><span class="line"><span style="color:#24292e;"># 默认情况下，如果开启了 RDB 快照，且最近一次 RDB 后台保存失败，就会停止写操作</span></span>
+<span class="line"><span style="color:#24292e;">#</span></span>
+<span class="line"><span style="color:#24292e;"># 这会以一种强硬的方式让用户知道，数据没能正确的在磁盘上进行持久化</span></span>
+<span class="line"><span style="color:#24292e;">#</span></span>
+<span class="line"><span style="color:#24292e;"># 如果后台执行保存工作的进程重新运行，Redis 会重新自动允许写操作发生</span></span>
+<span class="line"><span style="color:#24292e;">#</span></span>
+<span class="line"><span style="color:#24292e;"># 如果设置了自定义的监视器来监视 Redis 服务器的持久化，将此功能关闭后，即使</span></span>
+<span class="line"><span style="color:#24292e;"># 磁盘写入出现问题 Redis 也会照常工作</span></span>
+<span class="line"><span style="color:#24292e;">stop-writes-on-bgsave-error yes</span></span></code></pre></div><h4 id="压缩与校验" tabindex="-1">压缩与校验 <a class="header-anchor" href="#压缩与校验" aria-label="Permalink to &quot;压缩与校验&quot;">​</a></h4><div class="language- vp-adaptive-theme"><button title="Copy Code" class="copy"></button><span class="lang"></span><pre class="shiki github-dark vp-code-dark"><code><span class="line"><span style="color:#e1e4e8;"># 启用 LZF 压缩算法</span></span>
+<span class="line"><span style="color:#e1e4e8;"># By default compression is enabled as it&#39;s almost always a win.</span></span>
+<span class="line"><span style="color:#e1e4e8;"># If you want to save some CPU in the saving child set it to &#39;no&#39; but</span></span>
+<span class="line"><span style="color:#e1e4e8;"># the dataset will likely be bigger if you have compressible values or keys.</span></span>
+<span class="line"><span style="color:#e1e4e8;">rdbcompression yes</span></span>
+<span class="line"><span style="color:#e1e4e8;"></span></span>
+<span class="line"><span style="color:#e1e4e8;"># RDB 文件校验码，一般出现在 RDB 文件的尾部</span></span>
+<span class="line"><span style="color:#e1e4e8;"># Since version 5 of RDB a CRC64 checksum is placed at the end of the file.</span></span>
+<span class="line"><span style="color:#e1e4e8;"># This makes the format more resistant to corruption but there is a performance</span></span>
+<span class="line"><span style="color:#e1e4e8;"># hit to pay (around 10%) when saving and loading RDB files, so you can disable it</span></span>
+<span class="line"><span style="color:#e1e4e8;"># for maximum performances.</span></span>
+<span class="line"><span style="color:#e1e4e8;"># 在保证文件完整性和准确性上有很大保证，但是在保存 RDB 文件的时候会多大约 10% 的性能损耗</span></span>
+<span class="line"><span style="color:#e1e4e8;"># 可将其禁用以获得更的高性能</span></span>
+<span class="line"><span style="color:#e1e4e8;">#</span></span>
+<span class="line"><span style="color:#e1e4e8;"># 将校验关闭后，RDB 文件尾部会使用 0 来作为标识，加载到拥有 0 标识的文件时会跳过校验</span></span>
+<span class="line"><span style="color:#e1e4e8;">rdbchecksum yes</span></span></code></pre><pre class="shiki github-light vp-code-light"><code><span class="line"><span style="color:#24292e;"># 启用 LZF 压缩算法</span></span>
+<span class="line"><span style="color:#24292e;"># By default compression is enabled as it&#39;s almost always a win.</span></span>
+<span class="line"><span style="color:#24292e;"># If you want to save some CPU in the saving child set it to &#39;no&#39; but</span></span>
+<span class="line"><span style="color:#24292e;"># the dataset will likely be bigger if you have compressible values or keys.</span></span>
+<span class="line"><span style="color:#24292e;">rdbcompression yes</span></span>
+<span class="line"><span style="color:#24292e;"></span></span>
+<span class="line"><span style="color:#24292e;"># RDB 文件校验码，一般出现在 RDB 文件的尾部</span></span>
+<span class="line"><span style="color:#24292e;"># Since version 5 of RDB a CRC64 checksum is placed at the end of the file.</span></span>
+<span class="line"><span style="color:#24292e;"># This makes the format more resistant to corruption but there is a performance</span></span>
+<span class="line"><span style="color:#24292e;"># hit to pay (around 10%) when saving and loading RDB files, so you can disable it</span></span>
+<span class="line"><span style="color:#24292e;"># for maximum performances.</span></span>
+<span class="line"><span style="color:#24292e;"># 在保证文件完整性和准确性上有很大保证，但是在保存 RDB 文件的时候会多大约 10% 的性能损耗</span></span>
+<span class="line"><span style="color:#24292e;"># 可将其禁用以获得更的高性能</span></span>
+<span class="line"><span style="color:#24292e;">#</span></span>
+<span class="line"><span style="color:#24292e;"># 将校验关闭后，RDB 文件尾部会使用 0 来作为标识，加载到拥有 0 标识的文件时会跳过校验</span></span>
+<span class="line"><span style="color:#24292e;">rdbchecksum yes</span></span></code></pre></div><h3 id="aof" tabindex="-1">AOF <a class="header-anchor" href="#aof" aria-label="Permalink to &quot;AOF&quot;">​</a></h3><blockquote><p>使用异步 RDB 的方式将 dump 文件保存到磁盘上这种方法在很多情况下已经够用了，但是 Redis 进程或者服务器断电等问题会导致存在几分钟的数据丢失</p><p>AOF 可以提供一个更加完善的持久化方式，对于默认使用 <code>fsync</code> 策略的 Redis 服务器，在遇到服务器断电或者单个写程序线程在遇到问题时，仅会丢失几秒钟的数据</p><p>AOF 和 RDB 持久化可同时开启，在 Redis 启动时，如果同时存在 AOF 和 RDB 数据，会优先选择使用 AOF 持久化的数据来恢复，因为 AOF 具有更好的数据持久化保证</p></blockquote><p>在 Redis 中配置 <code>appendonly &lt;yes|no&gt;</code> 来修改 AOF 状态。</p><h4 id="同步策略-1" tabindex="-1">同步策略 <a class="header-anchor" href="#同步策略-1" aria-label="Permalink to &quot;同步策略&quot;">​</a></h4><p>当 Redis 开启 AOF 持久化时，Redis 会将所有的写命令以日志的形式追加到 AOF 文件中。当 AOF 文件过大时，Redis 会启动 AOF 重写操作，以此来压缩 AOF 文件。AOF 重写的过程是将内存中的数据写入到新的 AOF 文件中。在这个过程中，Redis 可以采用两种同步策略：</p><ul><li>每次写入 AOF 文件时，都进行一次 fsync 操作，将缓冲区的数据刷入磁盘。这种方式会保证 AOF 文件的持久化和安全性，但是会导致写入性能下降。</li><li>Redis 从上次 fsync 操作以来，累计写入一定数量的数据后，才进行一次 fsync 操作。这种方式会提高写入性能，但是会带来数据安全性的风险。因为在 fsync 之前，数据仅停留在缓冲区中，如果系统出现宕机等异常情况，那么这部分数据就会丢失。</li></ul><blockquote><p>调用 <code>fsync()</code> （Append-only file sync）会让操作系统将 AOF 文件直接写到磁盘上，无需等缓存中有足够 AOF 文件数据再转存至磁盘（不同的操作系统会有不同的响应，有些操作系统直接写入磁盘，而有些操作系统只是尝试尽量这样做）</p><p><code>appendfsync</code> 选项决定了写命令被追加到 AOF 文件后是否需要立即同步到磁盘：</p><ul><li>no 不会执行同步操作，让系统决定何时将 AOF 文件同步到磁盘</li><li>always 每次写命令被追加到 AOF 文件后都会立即同步到磁盘</li><li>everysec 每秒钟会执行一次同步操作，默认配置</li></ul><p><code>#appendfsync always</code></p><p><code>appendfsync everysec</code></p><p><code>#appendfsync no</code></p></blockquote><blockquote><p>当 AOF 文件同步策略设置为 <em>always</em> 或 <em>everysec</em>，且存在一个后台进程正在执行大量的磁盘 IO 操作，在某些 Linux 上 Redis 可能会在调用 <code>fsync</code> 时阻塞很长的时间。目前还没有办法修复。</p><p>为了缓解这个问题，可以启用 <code>no-appendfsync-on-rewrite</code> 阻止主线程在执行 <code>BGSAVE</code> 或 <code>BGREWRITEAOF</code> 的时候调用 <code>fsync</code></p><p>当存在子线程进行保存备份操作的时候 Redis 的 AOF 文件同步策略相当于 <code>appendfsync no</code>，也就是说此时可能会丢失大概 30s 左右时间的数据</p><p><code>no-appendfsync-on-rewrite no</code></p></blockquote><h4 id="基准文件创建" tabindex="-1">基准文件创建 <a class="header-anchor" href="#基准文件创建" aria-label="Permalink to &quot;基准文件创建&quot;">​</a></h4><blockquote><p>Redis can create append-only base files in either RDB or AOF formats. Using the RDB format is always faster and more efficient, and disabling it is only supported for backward compatibility purposes. 默认使用 RDB 文件作为基准创建 AOF 文件</p><p><code>aof-use-rdb-preamble yes</code></p><p>Redis supports recording timestamp annotations in the AOF to support restoring the data from a specific point-in-time. However, using this capability changes the AOF format in a way that may not be compatible with existing AOF parsers. 是否给 AOF 记录加时间戳，可能存在兼容性问题</p><p><code>aof-timestamp-enabled no</code></p></blockquote><h4 id="名称与路径-1" tabindex="-1">名称与路径 <a class="header-anchor" href="#名称与路径-1" aria-label="Permalink to &quot;名称与路径&quot;">​</a></h4><p><strong>文件类型</strong></p><blockquote><p>Redis 7 and newer use a set of append-only files to persist the dataset and changes applied to it. Redis 7 之后使用一系列文件来进行数据持久化以及应用数据更改。</p><ul><li><p>Base files, which are a snapshot representing the complete state of the dataset at the time the file was created. Base files can be either in the form of RDB (binary serialized) or AOF (textual commands).</p><p>基础文件，表示快照文件创建时整个数据库中数据的状态，基础文件可以是 RDB 形式的文件，也可以是 AOF 文件</p></li><li><p>Incremental files, which contain additional commands that were applied to the dataset following the previous file.</p><p>增量文件，包含对基础文件之后针对数据集操作的附加命令</p></li></ul></blockquote><p><strong>文件名称</strong></p><blockquote><p>Append-only file names are created by Redis following a specific pattern. The file name&#39;s prefix is based on the &#39;appendfilename&#39; configuration parameter, followed by additional information about the sequence and type.</p><p><code>appendfilename &quot;appendonly.aof&quot;</code></p><p>For example, if appendfilename is set to appendonly.aof, the following file names could be derived:</p><p>---- appendonly.aof.1.base.rdb as a base file.</p><p>----- appendonly.aof.1.incr.aof, appendonly.aof.2.incr.aof as incremental files.</p><p>---- appendonly.aof.manifest as a manifest file.</p></blockquote><p><strong>文件保存路径</strong></p><blockquote><p>For convenience, Redis stores all persistent append-only files in a dedicated directory. The name of the directory is determined by the appenddirname configuration parameter.</p><p><code>appenddirname &quot;appendonlydir&quot;</code></p></blockquote><h4 id="文件重写" tabindex="-1">文件重写 <a class="header-anchor" href="#文件重写" aria-label="Permalink to &quot;文件重写&quot;">​</a></h4><blockquote><p>Automatic rewrite of the append only file. Redis is able to automatically rewrite the log file implicitly calling BGREWRITEAOF when the AOF log size grows by the specified percentage.</p><p>在 AOF 文件大小增长到指定范围时，Redis 能够通过隐式调用 BGREWRITEAOF 来重写 AOF 文件。</p><p>Redis remembers the size of the AOF file after the latest rewrite (if no rewrite has happened since the restart, the size of the AOF at startup is used).</p><p>This base size is compared to the current size. If the current size is bigger than the specified percentage, the rewrite is triggered. Also you need to specify a minimal size for the AOF file to be rewritten, this is useful to avoid rewriting the AOF file even if the percentage increase is reached but it is still pretty small.</p><p>Redis 会使用最新一次重写时 AOF 文件的大小来作为基准，如果还没进行过重写操作，则使用 Redis 启动时 AOF 文件的大小来作为基准。</p><p>用当前文件大于来和基准大小做比较，当前文件大小超过指定阈值，且大于基准大小乘上对应百分比，就会触发重写操作。默认是当 AOF 文件大于 64m 且大于上一次重写文件的 2 倍触发重写</p><p>Specify a percentage of zero in order to disable the automatic AOF rewrite feature.</p><p><code>auto-aof-rewrite-percentage 100</code><code>auto-aof-rewrite-min-size 64mb</code></p></blockquote><blockquote><p>When a child rewrites the AOF file, if the following option is enabled the file will be fsync-ed every 4 MB of data generated. This is useful in order to commit the file to the disk more incrementally and avoid big latency spikes.</p><p><code>aof-rewrite-incremental-fsync yes</code></p></blockquote><h4 id="文件校验" tabindex="-1">文件校验 <a class="header-anchor" href="#文件校验" aria-label="Permalink to &quot;文件校验&quot;">​</a></h4><blockquote><p>An AOF file may be found to be truncated at the end during the Redis startup process, when the AOF data gets loaded back into memory. This may happen when the system where Redis is running crashes, especially when an ext4 filesystem is mounted without the data=ordered option (however this can&#39;t happen when Redis itself crashes or aborts but the operating system still works correctly).</p><p>Redis can either exit with an error when this happens, or load as much data as possible (the default now) and start if the AOF file is found to be truncated at the end. The following option controls this behavior.</p><p>If aof-load-truncated is set to yes, a truncated AOF file is loaded and the Redis server starts emitting a log to inform the user of the event. Otherwise if the option is set to no, the server aborts with an error and refuses to start. When the option is set to no, the user requires to fix the AOF file using the &quot;redis-check-aof&quot; utility before to restart the server.</p><p>Note that if the AOF file will be found to be corrupted in the middle, the server will still exit with an error. This option only applies when Redis will try to read more data from the AOF file but not enough bytes will be found.</p><p><code>aof-load-truncated yes</code></p><p>Redis 启动过程中，将 AOF 数据加载回内存时，可能会发现 AOF 文件在末尾被截断。Redis 可能会因此退出，也可能继续加载数据并启动。</p><p>如果 <code>aof-load-truncated</code> 设置为 <em>yes</em>，Redis 会发送相关日志通知用户此事件；否则 Redis 会出错并拒绝启动。当设置为 <em>no</em> 时，需要使用 <code>redis-check-aof</code> 命令修复 AOF 文件才能重新启动；如果在加载 AOF 文件时发现文件损坏，Redis 服务会报错并退出。</p></blockquote><br><h2 id="内存管理" tabindex="-1">内存管理 <a class="header-anchor" href="#内存管理" aria-label="Permalink to &quot;内存管理&quot;">​</a></h2><h3 id="内存回收策略" tabindex="-1">内存回收策略 <a class="header-anchor" href="#内存回收策略" aria-label="Permalink to &quot;内存回收策略&quot;">​</a></h3><p>Redis 设置最大内存容量 <code>maxmemory &lt;bytes&gt;</code></p><blockquote><p>当达到内存限制时，Redis 将会根据缓存驱逐策略删除 Key</p></blockquote><p><strong>POLICY</strong>:</p><ul><li>volatile-lru（Least Recently Used） -&gt; 从<strong>已设置过期</strong>时间数据中淘汰<strong>最近最少使用</strong>数据</li><li>allkeys-lru -&gt; 从<strong>所有</strong>数据中淘汰<strong>最近最少使用</strong>数据</li><li>volatile-lfu（Least Frequently Used） -&gt; 从<strong>已设置过期</strong>时间数据中淘汰<strong>最不经常使用</strong>数据</li><li>allkeys-lfu -&gt; 从<strong>所有</strong>数据中淘汰<strong>最不经常使用</strong>数据</li><li>volatile-random -&gt; 从<strong>已设置过期</strong>时间数据中<strong>随机</strong>淘汰数据</li><li>allkeys-random -&gt; 从<strong>所有</strong>时间数据中<strong>随机</strong>淘汰数据</li><li>volatile-ttl -&gt; 从<strong>已设置过期</strong>时间数据中移除将要过期数据</li><li>noeviction -&gt; 不淘汰数据，写入操作报错</li></ul><blockquote><p>如果 Redis 不能根据缓存策略删除 Key 或者缓存删除策略是 <code>noeviction</code>：当内存满时 Redis 将会给 SET/LPUSH 等新增方法返回错误的结果，但数据读取方法依然正常</p></blockquote><blockquote><p>Both LRU, LFU and volatile-ttl are implemented using approximated randomized algorithms(in order to save memory).</p></blockquote><blockquote><p>By default Redis will check five keys and pick the one that was used least recently, you can change the sample size using the following configuration directive.</p><p>默认一次检查 5 个 key，从其中一个选出满足策略的 key 并将其淘汰</p><p>The default of 5 produces good enough results. 10 Approximates very closely true LRU but costs more CPU. 3 is faster but not very accurate.</p></blockquote><h3 id="过期数据回收策略" tabindex="-1">过期数据回收策略 <a class="header-anchor" href="#过期数据回收策略" aria-label="Permalink to &quot;过期数据回收策略&quot;">​</a></h3><ul><li><strong>惰性删除</strong>，在访问到过期 key 时将其删除；</li><li><strong>主动回收</strong>，在后台缓慢扫描寻找过期的 key，就可以释放过期/不会再被访问到的 key 占用的空间。</li></ul><blockquote><p>Redis 的默认策略会尽量避免内存中存在超过 10% 的过期 Key，并尽量避免过期的 Key 消耗超过总内存 25% 的空间</p></blockquote><h3 id="key-删除原语" tabindex="-1">Key 删除原语 <a class="header-anchor" href="#key-删除原语" aria-label="Permalink to &quot;Key 删除原语&quot;">​</a></h3><p>Redis 中有两个删除 key 的原语：</p><ul><li><p>DEL</p><blockquote><p>DEL is a blocking deletion of the object. It means that the server stops processing new commands in order to reclaim all the memory associated with an object in a synchronous way.</p></blockquote><blockquote><p>If the key deleted is associated with a small object, the time needed in order to execute the DEL command is very small and comparable to most other O(1) or O(log_N) commands in Redis. However if the key is associated with an aggregated value containing millions of elements, the server can block for a long time (even seconds) in order to complete the operation.</p></blockquote></li><li><p>UNLINK</p><blockquote><p>For the above reasons Redis also offers non blocking deletion primitives UNLINK (non blocking DEL) and the ASYNC option of FLUSHALL and FLUSHDB commands, in order to reclaim memory in background.</p><p>Those commands are executed in constant time. Another thread will incrementally free the object in the background as fast as possible.</p><p>这些命令由一个线程在一定的时间内执行，另一个线程在后台尽可能快的释放内存</p></blockquote></li></ul><blockquote><p>DEL, UNLINK and ASYNC option of FLUSHALL and FLUSHDB are user-controlled. It&#39;s up to the design of the application to understand when it is a good idea to use one or the other.</p><p>以上删除命令是供用户使用的，由应用开发者来决定使用何种方式</p></blockquote><blockquote><p>However the Redis server sometimes has to delete keys or flush the whole database as a side effect of other operations.</p><p>Redis 服务器有些时候也会主动的删除或者清空整个数据库数据，特别是以下这些场景：</p><p>Specifically Redis deletes objects independently of a user call in the following scenarios:</p><ol><li><p>On eviction, because of the maxmemory and maxmemory policy configurations, in order to make room for new data, without going over the specified memory limit.</p><p>达到最大内存限制</p></li><li><p>Because of expire: when a key with an associated time to live must be deleted from memory.</p><p>当 key 过期</p></li><li><p>Because of a side effect of a command that stores data on a key that may already exist. For example the RENAME command may delete the old key content when it is replaced with another one. Similarly SUNIONSTORE or SORT with STORE option may delete existing keys. The SET command itself removes any old content of the specified key in order to replace it with the specified string.</p><p>执行相关的命令可能会将以存在的数据删除，如 RENAME 命令会将旧的键值删除；类似的还有 SUNIONSTORE 和 带有 STORE 参数的 SORT 命令也会删除已存在的 key；常用的 SET 命令本身也会将旧的内容（如果存在）删除，并替换成新的内容</p></li><li><p>During replication, when a replica performs a full resynchronization with its master, the content of the whole database is removed in order to load the RDB file just transferred.</p><p>从库从主库接收到一个完整的 resynchronization 请求时，整个从库的数据都会被移除，然后重新加载刚传输过来的 RDB 文件数据</p></li></ol><p>In all the above cases the default is to delete objects in a blocking way, like if DEL was called. However you can configure each case specifically in order to instead release memory in a non-blocking way like if UNLINK was called, using the following configuration directives. 以上删除 Key 的方式都是阻塞进行的</p></blockquote><br><h2 id="高级配置" tabindex="-1">高级配置 <a class="header-anchor" href="#高级配置" aria-label="Permalink to &quot;高级配置&quot;">​</a></h2><h3 id="rehash" tabindex="-1">Rehash <a class="header-anchor" href="#rehash" aria-label="Permalink to &quot;Rehash&quot;">​</a></h3><blockquote><p>Active rehashing uses 1 millisecond every 100 milliseconds of CPU time in order to help rehashing the main Redis hash table (the one mapping top-level keys to values). The hash table implementation Redis uses (see dict.c) performs a lazy rehashing: the more operation you run into a hash table that is rehashing, the more rehashing &quot;steps&quot; are performed, so if the server is idle the rehashing is never complete and some more memory is used by the hash table.</p><p><code>activerehashing yes</code></p></blockquote><br><h2 id="内存碎片整理" tabindex="-1">内存碎片整理 <a class="header-anchor" href="#内存碎片整理" aria-label="Permalink to &quot;内存碎片整理&quot;">​</a></h2><h2 id="主从配置" tabindex="-1">主从配置 <a class="header-anchor" href="#主从配置" aria-label="Permalink to &quot;主从配置&quot;">​</a></h2><div class="language- vp-adaptive-theme"><button title="Copy Code" class="copy"></button><span class="lang"></span><pre class="shiki github-dark has-diff vp-code-dark"><code><span class="line"><span style="color:#e1e4e8;"># Master-Replica replication. Use replicaof to make a Redis instance a copy of</span></span>
+<span class="line"><span style="color:#e1e4e8;"># another Redis server. A few things to understand ASAP about Redis replication.</span></span>
+<span class="line"><span style="color:#e1e4e8;">#</span></span>
+<span class="line"><span style="color:#e1e4e8;">#   +------------------+      +---------------+</span></span>
+<span class="line"><span style="color:#e1e4e8;">#   |      Master      | ---&gt; |    Replica    |</span></span>
+<span class="line"><span style="color:#e1e4e8;">#   | (receive writes) |      |  (exact copy) |</span></span>
+<span class="line"><span style="color:#e1e4e8;">#   +------------------+      +---------------+</span></span>
+<span class="line"><span style="color:#e1e4e8;">#</span></span>
+<span class="line"><span style="color:#e1e4e8;"># 1) Redis replication is asynchronous, but you can configure a master to</span></span>
+<span class="line"><span style="color:#e1e4e8;">#    stop accepting writes if it appears to be not connected with at least</span></span>
+<span class="line"><span style="color:#e1e4e8;">#    a given number of replicas.</span></span>
+<span class="line"><span style="color:#e1e4e8;"># 2) Redis replicas are able to perform a partial resynchronization with the</span></span>
+<span class="line"><span style="color:#e1e4e8;">#    master if the replication link is lost for a relatively small amount of</span></span>
+<span class="line"><span style="color:#e1e4e8;">#    time. You may want to configure the replication backlog size (see the next</span></span>
+<span class="line"><span style="color:#e1e4e8;">#    sections of this file) with a sensible value depending on your needs.</span></span>
+<span class="line"><span style="color:#e1e4e8;"># 3) Replication is automatic and does not need user intervention. After a</span></span>
+<span class="line"><span style="color:#e1e4e8;">#    network partition replicas automatically try to reconnect to masters</span></span>
+<span class="line"><span style="color:#e1e4e8;">#    and resynchronize with them.</span></span>
+<span class="line"><span style="color:#e1e4e8;">#</span></span>
+<span class="line"><span style="color:#e1e4e8;"># replicaof &lt;masterip&gt; &lt;masterport&gt;</span></span>
+<span class="line"><span style="color:#e1e4e8;"></span></span>
+<span class="line"><span style="color:#e1e4e8;"># If the master is password protected (using the &quot;requirepass&quot; configuration</span></span>
+<span class="line"><span style="color:#e1e4e8;"># directive below) it is possible to tell the replica to authenticate before</span></span>
+<span class="line"><span style="color:#e1e4e8;"># starting the replication synchronization process, otherwise the master will</span></span>
+<span class="line"><span style="color:#e1e4e8;"># refuse the replica request.</span></span>
+<span class="line"><span style="color:#e1e4e8;">#</span></span>
+<span class="line"><span style="color:#e1e4e8;"># masterauth &lt;master-password&gt;</span></span>
+<span class="line"><span style="color:#e1e4e8;">#</span></span>
+<span class="line"><span style="color:#e1e4e8;"># However this is not enough if you are using Redis ACLs (for Redis version</span></span>
+<span class="line"><span style="color:#e1e4e8;"># 6 or greater), and the default user is not capable of running the PSYNC</span></span>
+<span class="line"><span style="color:#e1e4e8;"># command and/or other commands needed for replication. In this case it&#39;s</span></span>
+<span class="line"><span style="color:#e1e4e8;"># better to configure a special user to use with replication, and specify the</span></span>
+<span class="line"><span style="color:#e1e4e8;"># masteruser configuration as such:</span></span>
+<span class="line"><span style="color:#e1e4e8;">#</span></span>
+<span class="line"><span style="color:#e1e4e8;"># masteruser &lt;username&gt;</span></span>
+<span class="line"><span style="color:#e1e4e8;">#</span></span>
+<span class="line"><span style="color:#e1e4e8;"># When masteruser is specified, the replica will authenticate against its</span></span>
+<span class="line"><span style="color:#e1e4e8;"># master using the new AUTH form: AUTH &lt;username&gt; &lt;password&gt;.</span></span>
+<span class="line"><span style="color:#e1e4e8;"></span></span>
+<span class="line"><span style="color:#e1e4e8;"># When a replica loses its connection with the master, or when the replication</span></span>
+<span class="line"><span style="color:#e1e4e8;"># is still in progress, the replica can act in two different ways:</span></span>
+<span class="line"><span style="color:#e1e4e8;">#</span></span>
+<span class="line"><span style="color:#e1e4e8;"># 1) if replica-serve-stale-data is set to &#39;yes&#39; (the default) the replica will</span></span>
+<span class="line"><span style="color:#e1e4e8;">#    still reply to client requests, possibly with out of date data, or the</span></span>
+<span class="line"><span style="color:#e1e4e8;">#    data set may just be empty if this is the first synchronization.</span></span>
+<span class="line"><span style="color:#e1e4e8;">#</span></span>
+<span class="line"><span style="color:#e1e4e8;"># 2) If replica-serve-stale-data is set to &#39;no&#39; the replica will reply with error</span></span>
+<span class="line"><span style="color:#e1e4e8;">#    &quot;MASTERDOWN Link with MASTER is down and replica-serve-stale-data is set to &#39;no&#39;&quot;</span></span>
+<span class="line"><span style="color:#e1e4e8;">#    to all data access commands, excluding commands such as:</span></span>
+<span class="line"><span style="color:#e1e4e8;">#    INFO, REPLICAOF, AUTH, SHUTDOWN, REPLCONF, ROLE, CONFIG, SUBSCRIBE,</span></span>
+<span class="line"><span style="color:#e1e4e8;">#    UNSUBSCRIBE, PSUBSCRIBE, PUNSUBSCRIBE, PUBLISH, PUBSUB, COMMAND, POST,</span></span>
+<span class="line"><span style="color:#e1e4e8;">#    HOST and LATENCY.</span></span>
+<span class="line"><span style="color:#e1e4e8;">#</span></span>
+<span class="line"><span style="color:#e1e4e8;">replica-serve-stale-data yes</span></span>
+<span class="line"><span style="color:#e1e4e8;"></span></span>
+<span class="line"><span style="color:#e1e4e8;"># You can configure a replica instance to accept writes or not. Writing against</span></span>
+<span class="line"><span style="color:#e1e4e8;"># a replica instance may be useful to store some ephemeral data (because data</span></span>
+<span class="line"><span style="color:#e1e4e8;"># written on a replica will be easily deleted after resync with the master) but</span></span>
+<span class="line"><span style="color:#e1e4e8;"># may also cause problems if clients are writing to it because of a</span></span>
+<span class="line"><span style="color:#e1e4e8;"># misconfiguration.</span></span>
+<span class="line"><span style="color:#e1e4e8;">#</span></span>
+<span class="line"><span style="color:#e1e4e8;"># Since Redis 2.6 by default replicas are read-only.</span></span>
+<span class="line"><span style="color:#e1e4e8;">#</span></span>
+<span class="line"><span style="color:#e1e4e8;"># Note: read only replicas are not designed to be exposed to untrusted clients</span></span>
+<span class="line"><span style="color:#e1e4e8;"># on the internet. It&#39;s just a protection layer against misuse of the instance.</span></span>
+<span class="line"><span style="color:#e1e4e8;"># Still a read only replica exports by default all the administrative commands</span></span>
+<span class="line"><span style="color:#e1e4e8;"># such as CONFIG, DEBUG, and so forth. To a limited extent you can improve</span></span>
+<span class="line"><span style="color:#e1e4e8;"># security of read only replicas using &#39;rename-command&#39; to shadow all the</span></span>
+<span class="line"><span style="color:#e1e4e8;"># administrative / dangerous commands.</span></span>
+<span class="line"><span style="color:#e1e4e8;">replica-read-only yes</span></span>
+<span class="line"><span style="color:#e1e4e8;"></span></span>
+<span class="line"><span style="color:#e1e4e8;"># Replication SYNC strategy: disk or socket.</span></span>
+<span class="line"><span style="color:#e1e4e8;">#</span></span>
+<span class="line"><span style="color:#e1e4e8;"># New replicas and reconnecting replicas that are not able to continue the</span></span>
+<span class="line"><span style="color:#e1e4e8;"># replication process just receiving differences, need to do what is called a</span></span>
+<span class="line"><span style="color:#e1e4e8;"># &quot;full synchronization&quot;. An RDB file is transmitted from the master to the</span></span>
+<span class="line"><span style="color:#e1e4e8;"># replicas.</span></span>
+<span class="line"><span style="color:#e1e4e8;">#</span></span>
+<span class="line"><span style="color:#e1e4e8;"># The transmission can happen in two different ways:</span></span>
+<span class="line"><span style="color:#e1e4e8;">#</span></span>
+<span class="line"><span style="color:#e1e4e8;"># 1) Disk-backed: The Redis master creates a new process that writes the RDB</span></span>
+<span class="line"><span style="color:#e1e4e8;">#                 file on disk. Later the file is transferred by the parent</span></span>
+<span class="line"><span style="color:#e1e4e8;">#                 process to the replicas incrementally.</span></span>
+<span class="line"><span style="color:#e1e4e8;"># 2) Diskless: The Redis master creates a new process that directly writes the</span></span>
+<span class="line"><span style="color:#e1e4e8;">#              RDB file to replica sockets, without touching the disk at all.</span></span>
+<span class="line"><span style="color:#e1e4e8;">#</span></span>
+<span class="line"><span style="color:#e1e4e8;"># With disk-backed replication, while the RDB file is generated, more replicas</span></span>
+<span class="line"><span style="color:#e1e4e8;"># can be queued and served with the RDB file as soon as the current child</span></span>
+<span class="line"><span style="color:#e1e4e8;"># producing the RDB file finishes its work. With diskless replication instead</span></span>
+<span class="line"><span style="color:#e1e4e8;"># once the transfer starts, new replicas arriving will be queued and a new</span></span>
+<span class="line"><span style="color:#e1e4e8;"># transfer will start when the current one terminates.</span></span>
+<span class="line"><span style="color:#e1e4e8;">#</span></span>
+<span class="line"><span style="color:#e1e4e8;"># When diskless replication is used, the master waits a configurable amount of</span></span>
+<span class="line"><span style="color:#e1e4e8;"># time (in seconds) before starting the transfer in the hope that multiple</span></span>
+<span class="line"><span style="color:#e1e4e8;"># replicas will arrive and the transfer can be parallelized.</span></span>
+<span class="line"><span style="color:#e1e4e8;">#</span></span>
+<span class="line"><span style="color:#e1e4e8;"># With slow disks and fast (large bandwidth) networks, diskless replication</span></span>
+<span class="line"><span style="color:#e1e4e8;"># works better.</span></span>
+<span class="line"><span style="color:#e1e4e8;">repl-diskless-sync yes</span></span>
+<span class="line"><span style="color:#e1e4e8;"></span></span>
+<span class="line"><span style="color:#e1e4e8;"># When diskless replication is enabled, it is possible to configure the delay</span></span>
+<span class="line"><span style="color:#e1e4e8;"># the server waits in order to spawn the child that transfers the RDB via socket</span></span>
+<span class="line"><span style="color:#e1e4e8;"># to the replicas.</span></span>
+<span class="line"><span style="color:#e1e4e8;">#</span></span>
+<span class="line"><span style="color:#e1e4e8;"># This is important since once the transfer starts, it is not possible to serve</span></span>
+<span class="line"><span style="color:#e1e4e8;"># new replicas arriving, that will be queued for the next RDB transfer, so the</span></span>
+<span class="line"><span style="color:#e1e4e8;"># server waits a delay in order to let more replicas arrive.</span></span>
+<span class="line"><span style="color:#e1e4e8;">#</span></span>
+<span class="line"><span style="color:#e1e4e8;"># The delay is specified in seconds, and by default is 5 seconds. To disable</span></span>
+<span class="line"><span style="color:#e1e4e8;"># it entirely just set it to 0 seconds and the transfer will start ASAP.</span></span>
+<span class="line"><span style="color:#e1e4e8;">repl-diskless-sync-delay 5</span></span>
+<span class="line"><span style="color:#e1e4e8;"></span></span>
+<span class="line"><span style="color:#e1e4e8;"># When diskless replication is enabled with a delay, it is possible to let</span></span>
+<span class="line"><span style="color:#e1e4e8;"># the replication start before the maximum delay is reached if the maximum</span></span>
+<span class="line"><span style="color:#e1e4e8;"># number of replicas expected have connected. Default of 0 means that the</span></span>
+<span class="line"><span style="color:#e1e4e8;"># maximum is not defined and Redis will wait the full delay.</span></span>
+<span class="line"><span style="color:#e1e4e8;">repl-diskless-sync-max-replicas 0</span></span>
+<span class="line"><span style="color:#e1e4e8;"></span></span>
+<span class="line"><span style="color:#e1e4e8;"># -----------------------------------------------------------------------------</span></span>
+<span class="line"><span style="color:#e1e4e8;"># WARNING: RDB diskless load is experimental. Since in this setup the replica</span></span>
+<span class="line"><span style="color:#e1e4e8;"># does not immediately store an RDB on disk, it may cause data loss during</span></span>
+<span class="line"><span style="color:#e1e4e8;"># failovers. RDB diskless load + Redis modules not handling I/O reads may also</span></span>
+<span class="line"><span style="color:#e1e4e8;"># cause Redis to abort in case of I/O errors during the initial synchronization</span></span>
+<span class="line"><span style="color:#e1e4e8;"># stage with the master. Use only if you know what you are doing.</span></span>
+<span class="line"><span style="color:#e1e4e8;"># -----------------------------------------------------------------------------</span></span>
+<span class="line"><span style="color:#e1e4e8;">#</span></span>
+<span class="line"><span style="color:#e1e4e8;"># Replica can load the RDB it reads from the replication link directly from the</span></span>
+<span class="line"><span style="color:#e1e4e8;"># socket, or store the RDB to a file and read that file after it was completely</span></span>
+<span class="line"><span style="color:#e1e4e8;"># received from the master.</span></span>
+<span class="line"><span style="color:#e1e4e8;">#</span></span>
+<span class="line"><span style="color:#e1e4e8;"># In many cases the disk is slower than the network, and storing and loading</span></span>
+<span class="line"><span style="color:#e1e4e8;"># the RDB file may increase replication time (and even increase the master&#39;s</span></span>
+<span class="line"><span style="color:#e1e4e8;"># Copy on Write memory and replica buffers).</span></span>
+<span class="line"><span style="color:#e1e4e8;"># However, parsing the RDB file directly from the socket may mean that we have</span></span>
+<span class="line"><span style="color:#e1e4e8;"># to flush the contents of the current database before the full rdb was</span></span>
+<span class="line"><span style="color:#e1e4e8;"># received. For this reason we have the following options:</span></span>
+<span class="line"><span style="color:#e1e4e8;">#</span></span>
+<span class="line"><span style="color:#e1e4e8;"># &quot;disabled&quot;    - Don&#39;t use diskless load (store the rdb file to the disk first)</span></span>
+<span class="line"><span style="color:#e1e4e8;"># &quot;on-empty-db&quot; - Use diskless load only when it is completely safe.</span></span>
+<span class="line"><span style="color:#e1e4e8;"># &quot;swapdb&quot;      - Keep current db contents in RAM while parsing the data directly</span></span>
+<span class="line"><span style="color:#e1e4e8;">#                 from the socket. Replicas in this mode can keep serving current</span></span>
+<span class="line"><span style="color:#e1e4e8;">#                 data set while replication is in progress, except for cases where</span></span>
+<span class="line"><span style="color:#e1e4e8;">#                 they can&#39;t recognize master as having a data set from same</span></span>
+<span class="line"><span style="color:#e1e4e8;">#                 replication history.</span></span>
+<span class="line"><span style="color:#e1e4e8;">#                 Note that this requires sufficient memory, if you don&#39;t have it,</span></span>
+<span class="line"><span style="color:#e1e4e8;">#                 you risk an OOM kill.</span></span>
+<span class="line"><span style="color:#e1e4e8;">repl-diskless-load disabled</span></span>
+<span class="line"><span style="color:#e1e4e8;"></span></span>
+<span class="line"><span style="color:#e1e4e8;"># Master send PINGs to its replicas in a predefined interval. It&#39;s possible to</span></span>
+<span class="line"><span style="color:#e1e4e8;"># change this interval with the repl_ping_replica_period option. The default</span></span>
+<span class="line"><span style="color:#e1e4e8;"># value is 10 seconds.</span></span>
+<span class="line"><span style="color:#e1e4e8;">#</span></span>
+<span class="line"><span style="color:#e1e4e8;"># repl-ping-replica-period 10</span></span>
+<span class="line"><span style="color:#e1e4e8;"></span></span>
+<span class="line"><span style="color:#e1e4e8;"># The following option sets the replication timeout for:</span></span>
+<span class="line"><span style="color:#e1e4e8;">#</span></span>
+<span class="line"><span style="color:#e1e4e8;"># 1) Bulk transfer I/O during SYNC, from the point of view of replica.</span></span>
+<span class="line"><span style="color:#e1e4e8;"># 2) Master timeout from the point of view of replicas (data, pings).</span></span>
+<span class="line"><span style="color:#e1e4e8;"># 3) Replica timeout from the point of view of masters (REPLCONF ACK pings).</span></span>
+<span class="line"><span style="color:#e1e4e8;">#</span></span>
+<span class="line"><span style="color:#e1e4e8;"># It is important to make sure that this value is greater than the value</span></span>
+<span class="line"><span style="color:#e1e4e8;"># specified for repl-ping-replica-period otherwise a timeout will be detected</span></span>
+<span class="line"><span style="color:#e1e4e8;"># every time there is low traffic between the master and the replica. The default</span></span>
+<span class="line"><span style="color:#e1e4e8;"># value is 60 seconds.</span></span>
+<span class="line"><span style="color:#e1e4e8;">#</span></span>
+<span class="line"><span style="color:#e1e4e8;"># repl-timeout 60</span></span>
+<span class="line"><span style="color:#e1e4e8;"></span></span>
+<span class="line"><span style="color:#e1e4e8;"># Disable TCP_NODELAY on the replica socket after SYNC?</span></span>
+<span class="line"><span style="color:#e1e4e8;">#</span></span>
+<span class="line"><span style="color:#e1e4e8;"># If you select &quot;yes&quot; Redis will use a smaller number of TCP packets and</span></span>
+<span class="line"><span style="color:#e1e4e8;"># less bandwidth to send data to replicas. But this can add a delay for</span></span>
+<span class="line"><span style="color:#e1e4e8;"># the data to appear on the replica side, up to 40 milliseconds with</span></span>
+<span class="line"><span style="color:#e1e4e8;"># Linux kernels using a default configuration.</span></span>
+<span class="line"><span style="color:#e1e4e8;">#</span></span>
+<span class="line"><span style="color:#e1e4e8;"># If you select &quot;no&quot; the delay for data to appear on the replica side will</span></span>
+<span class="line"><span style="color:#e1e4e8;"># be reduced but more bandwidth will be used for replication.</span></span>
+<span class="line"><span style="color:#e1e4e8;">#</span></span>
+<span class="line"><span style="color:#e1e4e8;"># By default we optimize for low latency, but in very high traffic conditions</span></span>
+<span class="line"><span style="color:#e1e4e8;"># or when the master and replicas are many hops away, turning this to &quot;yes&quot; may</span></span>
+<span class="line"><span style="color:#e1e4e8;"># be a good idea.</span></span>
+<span class="line"><span style="color:#e1e4e8;">repl-disable-tcp-nodelay no</span></span>
+<span class="line"><span style="color:#e1e4e8;"></span></span>
+<span class="line"><span style="color:#e1e4e8;"># Set the replication backlog size. The backlog is a buffer that accumulates</span></span>
+<span class="line"><span style="color:#e1e4e8;"># replica data when replicas are disconnected for some time, so that when a</span></span>
+<span class="line"><span style="color:#e1e4e8;"># replica wants to reconnect again, often a full resync is not needed, but a</span></span>
+<span class="line"><span style="color:#e1e4e8;"># partial resync is enough, just passing the portion of data the replica</span></span>
+<span class="line"><span style="color:#e1e4e8;"># missed while disconnected.</span></span>
+<span class="line"><span style="color:#e1e4e8;">#</span></span>
+<span class="line"><span style="color:#e1e4e8;"># The bigger the replication backlog, the longer the replica can endure the</span></span>
+<span class="line"><span style="color:#e1e4e8;"># disconnect and later be able to perform a partial resynchronization.</span></span>
+<span class="line"><span style="color:#e1e4e8;">#</span></span>
+<span class="line"><span style="color:#e1e4e8;"># The backlog is only allocated if there is at least one replica connected.</span></span>
+<span class="line"><span style="color:#e1e4e8;">#</span></span>
+<span class="line"><span style="color:#e1e4e8;"># repl-backlog-size 1mb</span></span>
+<span class="line"><span style="color:#e1e4e8;"></span></span>
+<span class="line"><span style="color:#e1e4e8;"># After a master has no connected replicas for some time, the backlog will be</span></span>
+<span class="line"><span style="color:#e1e4e8;"># freed. The following option configures the amount of seconds that need to</span></span>
+<span class="line"><span style="color:#e1e4e8;"># elapse, starting from the time the last replica disconnected, for the backlog</span></span>
+<span class="line"><span style="color:#e1e4e8;"># buffer to be freed.</span></span>
+<span class="line"><span style="color:#e1e4e8;">#</span></span>
+<span class="line"><span style="color:#e1e4e8;"># Note that replicas never free the backlog for timeout, since they may be</span></span>
+<span class="line"><span style="color:#e1e4e8;"># promoted to masters later, and should be able to correctly &quot;partially</span></span>
+<span class="line"><span style="color:#e1e4e8;"># resynchronize&quot; with other replicas: hence they should always accumulate backlog.</span></span>
+<span class="line"><span style="color:#e1e4e8;">#</span></span>
+<span class="line"><span style="color:#e1e4e8;"># A value of 0 means to never release the backlog.</span></span>
+<span class="line"><span style="color:#e1e4e8;">#</span></span>
+<span class="line"><span style="color:#e1e4e8;"># repl-backlog-ttl 3600</span></span>
+<span class="line"><span style="color:#e1e4e8;"></span></span>
+<span class="line"><span style="color:#e1e4e8;"># The replica priority is an integer number published by Redis in the INFO</span></span>
+<span class="line"><span style="color:#e1e4e8;"># output. It is used by Redis Sentinel in order to select a replica to promote</span></span>
+<span class="line"><span style="color:#e1e4e8;"># into a master if the master is no longer working correctly.</span></span>
+<span class="line"><span style="color:#e1e4e8;">#</span></span>
+<span class="line"><span style="color:#e1e4e8;"># A replica with a low priority number is considered better for promotion, so</span></span>
+<span class="line"><span style="color:#e1e4e8;"># for instance if there are three replicas with priority 10, 100, 25 Sentinel</span></span>
+<span class="line"><span style="color:#e1e4e8;"># will pick the one with priority 10, that is the lowest.</span></span>
+<span class="line"><span style="color:#e1e4e8;">#</span></span>
+<span class="line"><span style="color:#e1e4e8;"># However a special priority of 0 marks the replica as not able to perform the</span></span>
+<span class="line"><span style="color:#e1e4e8;"># role of master, so a replica with priority of 0 will never be selected by</span></span>
+<span class="line"><span style="color:#e1e4e8;"># Redis Sentinel for promotion.</span></span>
+<span class="line"><span style="color:#e1e4e8;">#</span></span>
+<span class="line"><span style="color:#e1e4e8;"># By default the priority is 100.</span></span>
+<span class="line"><span style="color:#e1e4e8;">replica-priority 100</span></span>
+<span class="line"><span style="color:#e1e4e8;"></span></span>
+<span class="line"><span style="color:#e1e4e8;"># The propagation error behavior controls how Redis will behave when it is</span></span>
+<span class="line"><span style="color:#e1e4e8;"># unable to handle a command being processed in the replication stream from a master</span></span>
+<span class="line"><span style="color:#e1e4e8;"># or processed while reading from an AOF file. Errors that occur during propagation</span></span>
+<span class="line"><span style="color:#e1e4e8;"># are unexpected, and can cause data inconsistency. However, there are edge cases</span></span>
+<span class="line"><span style="color:#e1e4e8;"># in earlier versions of Redis where it was possible for the server to replicate or persist</span></span>
+<span class="line"><span style="color:#e1e4e8;"># commands that would fail on future versions. For this reason the default behavior</span></span>
+<span class="line"><span style="color:#e1e4e8;"># is to ignore such errors and continue processing commands.</span></span>
+<span class="line"><span style="color:#e1e4e8;">#</span></span>
+<span class="line"><span style="color:#e1e4e8;"># If an application wants to ensure there is no data divergence, this configuration</span></span>
+<span class="line"><span style="color:#e1e4e8;"># should be set to &#39;panic&#39; instead. The value can also be set to &#39;panic-on-replicas&#39;</span></span>
+<span class="line"><span style="color:#e1e4e8;"># to only panic when a replica encounters an error on the replication stream. One of</span></span>
+<span class="line"><span style="color:#e1e4e8;"># these two panic values will become the default value in the future once there are</span></span>
+<span class="line"><span style="color:#e1e4e8;"># sufficient safety mechanisms in place to prevent false positive crashes.</span></span>
+<span class="line"><span style="color:#e1e4e8;">#</span></span>
+<span class="line"><span style="color:#e1e4e8;"># propagation-error-behavior ignore</span></span>
+<span class="line"><span style="color:#e1e4e8;"></span></span>
+<span class="line"><span style="color:#e1e4e8;"># Replica ignore disk write errors controls the behavior of a replica when it is</span></span>
+<span class="line"><span style="color:#e1e4e8;"># unable to persist a write command received from its master to disk. By default,</span></span>
+<span class="line"><span style="color:#e1e4e8;"># this configuration is set to &#39;no&#39; and will crash the replica in this condition.</span></span>
+<span class="line"><span style="color:#e1e4e8;"># It is not recommended to change this default, however in order to be compatible</span></span>
+<span class="line"><span style="color:#e1e4e8;"># with older versions of Redis this config can be toggled to &#39;yes&#39; which will just</span></span>
+<span class="line"><span style="color:#e1e4e8;"># log a warning and execute the write command it got from the master.</span></span>
+<span class="line"><span style="color:#e1e4e8;">#</span></span>
+<span class="line"><span style="color:#e1e4e8;"># replica-ignore-disk-write-errors no</span></span>
+<span class="line"><span style="color:#e1e4e8;"></span></span>
+<span class="line"><span style="color:#e1e4e8;"># -----------------------------------------------------------------------------</span></span>
+<span class="line"><span style="color:#e1e4e8;"># By default, Redis Sentinel includes all replicas in its reports. A replica</span></span>
+<span class="line"><span style="color:#e1e4e8;"># can be excluded from Redis Sentinel&#39;s announcements. An unannounced replica</span></span>
+<span class="line"><span style="color:#e1e4e8;"># will be ignored by the &#39;sentinel replicas &lt;master&gt;&#39; command and won&#39;t be</span></span>
+<span class="line"><span style="color:#e1e4e8;"># exposed to Redis Sentinel&#39;s clients.</span></span>
+<span class="line"><span style="color:#e1e4e8;">#</span></span>
+<span class="line"><span style="color:#e1e4e8;"># This option does not change the behavior of replica-priority. Even with</span></span>
+<span class="line"><span style="color:#e1e4e8;"># replica-announced set to &#39;no&#39;, the replica can be promoted to master. To</span></span>
+<span class="line"><span style="color:#e1e4e8;"># prevent this behavior, set replica-priority to 0.</span></span>
+<span class="line"><span style="color:#e1e4e8;">#</span></span>
+<span class="line"><span style="color:#e1e4e8;"># replica-announced yes</span></span>
+<span class="line"><span style="color:#e1e4e8;"></span></span>
+<span class="line"><span style="color:#e1e4e8;"># It is possible for a master to stop accepting writes if there are less than</span></span>
+<span class="line"><span style="color:#e1e4e8;"># N replicas connected, having a lag less or equal than M seconds.</span></span>
+<span class="line"><span style="color:#e1e4e8;">#</span></span>
+<span class="line"><span style="color:#e1e4e8;"># The N replicas need to be in &quot;online&quot; state.</span></span>
+<span class="line"><span style="color:#e1e4e8;">#</span></span>
+<span class="line"><span style="color:#e1e4e8;"># The lag in seconds, that must be &lt;= the specified value, is calculated from</span></span>
+<span class="line"><span style="color:#e1e4e8;"># the last ping received from the replica, that is usually sent every second.</span></span>
+<span class="line"><span style="color:#e1e4e8;">#</span></span>
+<span class="line"><span style="color:#e1e4e8;"># This option does not GUARANTEE that N replicas will accept the write, but</span></span>
+<span class="line"><span style="color:#e1e4e8;"># will limit the window of exposure for lost writes in case not enough replicas</span></span>
+<span class="line"><span style="color:#e1e4e8;"># are available, to the specified number of seconds.</span></span>
+<span class="line"><span style="color:#e1e4e8;">#</span></span>
+<span class="line"><span style="color:#e1e4e8;"># For example to require at least 3 replicas with a lag &lt;= 10 seconds use:</span></span>
+<span class="line"><span style="color:#e1e4e8;">#</span></span>
+<span class="line"><span style="color:#e1e4e8;"># min-replicas-to-write 3</span></span>
+<span class="line"><span style="color:#e1e4e8;"># min-replicas-max-lag 10</span></span>
+<span class="line"><span style="color:#e1e4e8;">#</span></span>
+<span class="line"><span style="color:#e1e4e8;"># Setting one or the other to 0 disables the feature.</span></span>
+<span class="line"><span style="color:#e1e4e8;">#</span></span>
+<span class="line"><span style="color:#e1e4e8;"># By default min-replicas-to-write is set to 0 (feature disabled) and</span></span>
+<span class="line"><span style="color:#e1e4e8;"># min-replicas-max-lag is set to 10.</span></span>
+<span class="line"><span style="color:#e1e4e8;"></span></span>
+<span class="line"><span style="color:#e1e4e8;"># A Redis master is able to list the address and port of the attached</span></span>
+<span class="line"><span style="color:#e1e4e8;"># replicas in different ways. For example the &quot;INFO replication&quot; section</span></span>
+<span class="line"><span style="color:#e1e4e8;"># offers this information, which is used, among other tools, by</span></span>
+<span class="line"><span style="color:#e1e4e8;"># Redis Sentinel in order to discover replica instances.</span></span>
+<span class="line"><span style="color:#e1e4e8;"># Another place where this info is available is in the output of the</span></span>
+<span class="line"><span style="color:#e1e4e8;"># &quot;ROLE&quot; command of a master.</span></span>
+<span class="line"><span style="color:#e1e4e8;">#</span></span>
+<span class="line"><span style="color:#e1e4e8;"># The listed IP address and port normally reported by a replica is</span></span>
+<span class="line"><span style="color:#e1e4e8;"># obtained in the following way:</span></span>
+<span class="line"><span style="color:#e1e4e8;">#</span></span>
+<span class="line"><span style="color:#e1e4e8;">#   IP: The address is auto detected by checking the peer address</span></span>
+<span class="line"><span style="color:#e1e4e8;">#   of the socket used by the replica to connect with the master.</span></span>
+<span class="line"><span style="color:#e1e4e8;">#</span></span>
+<span class="line"><span style="color:#e1e4e8;">#   Port: The port is communicated by the replica during the replication</span></span>
+<span class="line"><span style="color:#e1e4e8;">#   handshake, and is normally the port that the replica is using to</span></span>
+<span class="line"><span style="color:#e1e4e8;">#   listen for connections.</span></span>
+<span class="line"><span style="color:#e1e4e8;">#</span></span>
+<span class="line"><span style="color:#e1e4e8;"># However when port forwarding or Network Address Translation (NAT) is</span></span>
+<span class="line"><span style="color:#e1e4e8;"># used, the replica may actually be reachable via different IP and port</span></span>
+<span class="line"><span style="color:#e1e4e8;"># pairs. The following two options can be used by a replica in order to</span></span>
+<span class="line"><span style="color:#e1e4e8;"># report to its master a specific set of IP and port, so that both INFO</span></span>
+<span class="line"><span style="color:#e1e4e8;"># and ROLE will report those values.</span></span>
+<span class="line"><span style="color:#e1e4e8;">#</span></span>
+<span class="line"><span style="color:#e1e4e8;"># There is no need to use both the options if you need to override just</span></span>
+<span class="line"><span style="color:#e1e4e8;"># the port or the IP address.</span></span>
+<span class="line"><span style="color:#e1e4e8;">#</span></span>
+<span class="line"><span style="color:#e1e4e8;"># replica-announce-ip 5.5.5.5</span></span>
+<span class="line"><span style="color:#e1e4e8;"># replica-announce-port 1234</span></span></code></pre><pre class="shiki github-light has-diff vp-code-light"><code><span class="line"><span style="color:#24292e;"># Master-Replica replication. Use replicaof to make a Redis instance a copy of</span></span>
+<span class="line"><span style="color:#24292e;"># another Redis server. A few things to understand ASAP about Redis replication.</span></span>
+<span class="line"><span style="color:#24292e;">#</span></span>
+<span class="line"><span style="color:#24292e;">#   +------------------+      +---------------+</span></span>
+<span class="line"><span style="color:#24292e;">#   |      Master      | ---&gt; |    Replica    |</span></span>
+<span class="line"><span style="color:#24292e;">#   | (receive writes) |      |  (exact copy) |</span></span>
+<span class="line"><span style="color:#24292e;">#   +------------------+      +---------------+</span></span>
+<span class="line"><span style="color:#24292e;">#</span></span>
+<span class="line"><span style="color:#24292e;"># 1) Redis replication is asynchronous, but you can configure a master to</span></span>
+<span class="line"><span style="color:#24292e;">#    stop accepting writes if it appears to be not connected with at least</span></span>
+<span class="line"><span style="color:#24292e;">#    a given number of replicas.</span></span>
+<span class="line"><span style="color:#24292e;"># 2) Redis replicas are able to perform a partial resynchronization with the</span></span>
+<span class="line"><span style="color:#24292e;">#    master if the replication link is lost for a relatively small amount of</span></span>
+<span class="line"><span style="color:#24292e;">#    time. You may want to configure the replication backlog size (see the next</span></span>
+<span class="line"><span style="color:#24292e;">#    sections of this file) with a sensible value depending on your needs.</span></span>
+<span class="line"><span style="color:#24292e;"># 3) Replication is automatic and does not need user intervention. After a</span></span>
+<span class="line"><span style="color:#24292e;">#    network partition replicas automatically try to reconnect to masters</span></span>
+<span class="line"><span style="color:#24292e;">#    and resynchronize with them.</span></span>
+<span class="line"><span style="color:#24292e;">#</span></span>
+<span class="line"><span style="color:#24292e;"># replicaof &lt;masterip&gt; &lt;masterport&gt;</span></span>
+<span class="line"><span style="color:#24292e;"></span></span>
+<span class="line"><span style="color:#24292e;"># If the master is password protected (using the &quot;requirepass&quot; configuration</span></span>
+<span class="line"><span style="color:#24292e;"># directive below) it is possible to tell the replica to authenticate before</span></span>
+<span class="line"><span style="color:#24292e;"># starting the replication synchronization process, otherwise the master will</span></span>
+<span class="line"><span style="color:#24292e;"># refuse the replica request.</span></span>
+<span class="line"><span style="color:#24292e;">#</span></span>
+<span class="line"><span style="color:#24292e;"># masterauth &lt;master-password&gt;</span></span>
+<span class="line"><span style="color:#24292e;">#</span></span>
+<span class="line"><span style="color:#24292e;"># However this is not enough if you are using Redis ACLs (for Redis version</span></span>
+<span class="line"><span style="color:#24292e;"># 6 or greater), and the default user is not capable of running the PSYNC</span></span>
+<span class="line"><span style="color:#24292e;"># command and/or other commands needed for replication. In this case it&#39;s</span></span>
+<span class="line"><span style="color:#24292e;"># better to configure a special user to use with replication, and specify the</span></span>
+<span class="line"><span style="color:#24292e;"># masteruser configuration as such:</span></span>
+<span class="line"><span style="color:#24292e;">#</span></span>
+<span class="line"><span style="color:#24292e;"># masteruser &lt;username&gt;</span></span>
+<span class="line"><span style="color:#24292e;">#</span></span>
+<span class="line"><span style="color:#24292e;"># When masteruser is specified, the replica will authenticate against its</span></span>
+<span class="line"><span style="color:#24292e;"># master using the new AUTH form: AUTH &lt;username&gt; &lt;password&gt;.</span></span>
+<span class="line"><span style="color:#24292e;"></span></span>
+<span class="line"><span style="color:#24292e;"># When a replica loses its connection with the master, or when the replication</span></span>
+<span class="line"><span style="color:#24292e;"># is still in progress, the replica can act in two different ways:</span></span>
+<span class="line"><span style="color:#24292e;">#</span></span>
+<span class="line"><span style="color:#24292e;"># 1) if replica-serve-stale-data is set to &#39;yes&#39; (the default) the replica will</span></span>
+<span class="line"><span style="color:#24292e;">#    still reply to client requests, possibly with out of date data, or the</span></span>
+<span class="line"><span style="color:#24292e;">#    data set may just be empty if this is the first synchronization.</span></span>
+<span class="line"><span style="color:#24292e;">#</span></span>
+<span class="line"><span style="color:#24292e;"># 2) If replica-serve-stale-data is set to &#39;no&#39; the replica will reply with error</span></span>
+<span class="line"><span style="color:#24292e;">#    &quot;MASTERDOWN Link with MASTER is down and replica-serve-stale-data is set to &#39;no&#39;&quot;</span></span>
+<span class="line"><span style="color:#24292e;">#    to all data access commands, excluding commands such as:</span></span>
+<span class="line"><span style="color:#24292e;">#    INFO, REPLICAOF, AUTH, SHUTDOWN, REPLCONF, ROLE, CONFIG, SUBSCRIBE,</span></span>
+<span class="line"><span style="color:#24292e;">#    UNSUBSCRIBE, PSUBSCRIBE, PUNSUBSCRIBE, PUBLISH, PUBSUB, COMMAND, POST,</span></span>
+<span class="line"><span style="color:#24292e;">#    HOST and LATENCY.</span></span>
+<span class="line"><span style="color:#24292e;">#</span></span>
+<span class="line"><span style="color:#24292e;">replica-serve-stale-data yes</span></span>
+<span class="line"><span style="color:#24292e;"></span></span>
+<span class="line"><span style="color:#24292e;"># You can configure a replica instance to accept writes or not. Writing against</span></span>
+<span class="line"><span style="color:#24292e;"># a replica instance may be useful to store some ephemeral data (because data</span></span>
+<span class="line"><span style="color:#24292e;"># written on a replica will be easily deleted after resync with the master) but</span></span>
+<span class="line"><span style="color:#24292e;"># may also cause problems if clients are writing to it because of a</span></span>
+<span class="line"><span style="color:#24292e;"># misconfiguration.</span></span>
+<span class="line"><span style="color:#24292e;">#</span></span>
+<span class="line"><span style="color:#24292e;"># Since Redis 2.6 by default replicas are read-only.</span></span>
+<span class="line"><span style="color:#24292e;">#</span></span>
+<span class="line"><span style="color:#24292e;"># Note: read only replicas are not designed to be exposed to untrusted clients</span></span>
+<span class="line"><span style="color:#24292e;"># on the internet. It&#39;s just a protection layer against misuse of the instance.</span></span>
+<span class="line"><span style="color:#24292e;"># Still a read only replica exports by default all the administrative commands</span></span>
+<span class="line"><span style="color:#24292e;"># such as CONFIG, DEBUG, and so forth. To a limited extent you can improve</span></span>
+<span class="line"><span style="color:#24292e;"># security of read only replicas using &#39;rename-command&#39; to shadow all the</span></span>
+<span class="line"><span style="color:#24292e;"># administrative / dangerous commands.</span></span>
+<span class="line"><span style="color:#24292e;">replica-read-only yes</span></span>
+<span class="line"><span style="color:#24292e;"></span></span>
+<span class="line"><span style="color:#24292e;"># Replication SYNC strategy: disk or socket.</span></span>
+<span class="line"><span style="color:#24292e;">#</span></span>
+<span class="line"><span style="color:#24292e;"># New replicas and reconnecting replicas that are not able to continue the</span></span>
+<span class="line"><span style="color:#24292e;"># replication process just receiving differences, need to do what is called a</span></span>
+<span class="line"><span style="color:#24292e;"># &quot;full synchronization&quot;. An RDB file is transmitted from the master to the</span></span>
+<span class="line"><span style="color:#24292e;"># replicas.</span></span>
+<span class="line"><span style="color:#24292e;">#</span></span>
+<span class="line"><span style="color:#24292e;"># The transmission can happen in two different ways:</span></span>
+<span class="line"><span style="color:#24292e;">#</span></span>
+<span class="line"><span style="color:#24292e;"># 1) Disk-backed: The Redis master creates a new process that writes the RDB</span></span>
+<span class="line"><span style="color:#24292e;">#                 file on disk. Later the file is transferred by the parent</span></span>
+<span class="line"><span style="color:#24292e;">#                 process to the replicas incrementally.</span></span>
+<span class="line"><span style="color:#24292e;"># 2) Diskless: The Redis master creates a new process that directly writes the</span></span>
+<span class="line"><span style="color:#24292e;">#              RDB file to replica sockets, without touching the disk at all.</span></span>
+<span class="line"><span style="color:#24292e;">#</span></span>
+<span class="line"><span style="color:#24292e;"># With disk-backed replication, while the RDB file is generated, more replicas</span></span>
+<span class="line"><span style="color:#24292e;"># can be queued and served with the RDB file as soon as the current child</span></span>
+<span class="line"><span style="color:#24292e;"># producing the RDB file finishes its work. With diskless replication instead</span></span>
+<span class="line"><span style="color:#24292e;"># once the transfer starts, new replicas arriving will be queued and a new</span></span>
+<span class="line"><span style="color:#24292e;"># transfer will start when the current one terminates.</span></span>
+<span class="line"><span style="color:#24292e;">#</span></span>
+<span class="line"><span style="color:#24292e;"># When diskless replication is used, the master waits a configurable amount of</span></span>
+<span class="line"><span style="color:#24292e;"># time (in seconds) before starting the transfer in the hope that multiple</span></span>
+<span class="line"><span style="color:#24292e;"># replicas will arrive and the transfer can be parallelized.</span></span>
+<span class="line"><span style="color:#24292e;">#</span></span>
+<span class="line"><span style="color:#24292e;"># With slow disks and fast (large bandwidth) networks, diskless replication</span></span>
+<span class="line"><span style="color:#24292e;"># works better.</span></span>
+<span class="line"><span style="color:#24292e;">repl-diskless-sync yes</span></span>
+<span class="line"><span style="color:#24292e;"></span></span>
+<span class="line"><span style="color:#24292e;"># When diskless replication is enabled, it is possible to configure the delay</span></span>
+<span class="line"><span style="color:#24292e;"># the server waits in order to spawn the child that transfers the RDB via socket</span></span>
+<span class="line"><span style="color:#24292e;"># to the replicas.</span></span>
+<span class="line"><span style="color:#24292e;">#</span></span>
+<span class="line"><span style="color:#24292e;"># This is important since once the transfer starts, it is not possible to serve</span></span>
+<span class="line"><span style="color:#24292e;"># new replicas arriving, that will be queued for the next RDB transfer, so the</span></span>
+<span class="line"><span style="color:#24292e;"># server waits a delay in order to let more replicas arrive.</span></span>
+<span class="line"><span style="color:#24292e;">#</span></span>
+<span class="line"><span style="color:#24292e;"># The delay is specified in seconds, and by default is 5 seconds. To disable</span></span>
+<span class="line"><span style="color:#24292e;"># it entirely just set it to 0 seconds and the transfer will start ASAP.</span></span>
+<span class="line"><span style="color:#24292e;">repl-diskless-sync-delay 5</span></span>
+<span class="line"><span style="color:#24292e;"></span></span>
+<span class="line"><span style="color:#24292e;"># When diskless replication is enabled with a delay, it is possible to let</span></span>
+<span class="line"><span style="color:#24292e;"># the replication start before the maximum delay is reached if the maximum</span></span>
+<span class="line"><span style="color:#24292e;"># number of replicas expected have connected. Default of 0 means that the</span></span>
+<span class="line"><span style="color:#24292e;"># maximum is not defined and Redis will wait the full delay.</span></span>
+<span class="line"><span style="color:#24292e;">repl-diskless-sync-max-replicas 0</span></span>
+<span class="line"><span style="color:#24292e;"></span></span>
+<span class="line"><span style="color:#24292e;"># -----------------------------------------------------------------------------</span></span>
+<span class="line"><span style="color:#24292e;"># WARNING: RDB diskless load is experimental. Since in this setup the replica</span></span>
+<span class="line"><span style="color:#24292e;"># does not immediately store an RDB on disk, it may cause data loss during</span></span>
+<span class="line"><span style="color:#24292e;"># failovers. RDB diskless load + Redis modules not handling I/O reads may also</span></span>
+<span class="line"><span style="color:#24292e;"># cause Redis to abort in case of I/O errors during the initial synchronization</span></span>
+<span class="line"><span style="color:#24292e;"># stage with the master. Use only if you know what you are doing.</span></span>
+<span class="line"><span style="color:#24292e;"># -----------------------------------------------------------------------------</span></span>
+<span class="line"><span style="color:#24292e;">#</span></span>
+<span class="line"><span style="color:#24292e;"># Replica can load the RDB it reads from the replication link directly from the</span></span>
+<span class="line"><span style="color:#24292e;"># socket, or store the RDB to a file and read that file after it was completely</span></span>
+<span class="line"><span style="color:#24292e;"># received from the master.</span></span>
+<span class="line"><span style="color:#24292e;">#</span></span>
+<span class="line"><span style="color:#24292e;"># In many cases the disk is slower than the network, and storing and loading</span></span>
+<span class="line"><span style="color:#24292e;"># the RDB file may increase replication time (and even increase the master&#39;s</span></span>
+<span class="line"><span style="color:#24292e;"># Copy on Write memory and replica buffers).</span></span>
+<span class="line"><span style="color:#24292e;"># However, parsing the RDB file directly from the socket may mean that we have</span></span>
+<span class="line"><span style="color:#24292e;"># to flush the contents of the current database before the full rdb was</span></span>
+<span class="line"><span style="color:#24292e;"># received. For this reason we have the following options:</span></span>
+<span class="line"><span style="color:#24292e;">#</span></span>
+<span class="line"><span style="color:#24292e;"># &quot;disabled&quot;    - Don&#39;t use diskless load (store the rdb file to the disk first)</span></span>
+<span class="line"><span style="color:#24292e;"># &quot;on-empty-db&quot; - Use diskless load only when it is completely safe.</span></span>
+<span class="line"><span style="color:#24292e;"># &quot;swapdb&quot;      - Keep current db contents in RAM while parsing the data directly</span></span>
+<span class="line"><span style="color:#24292e;">#                 from the socket. Replicas in this mode can keep serving current</span></span>
+<span class="line"><span style="color:#24292e;">#                 data set while replication is in progress, except for cases where</span></span>
+<span class="line"><span style="color:#24292e;">#                 they can&#39;t recognize master as having a data set from same</span></span>
+<span class="line"><span style="color:#24292e;">#                 replication history.</span></span>
+<span class="line"><span style="color:#24292e;">#                 Note that this requires sufficient memory, if you don&#39;t have it,</span></span>
+<span class="line"><span style="color:#24292e;">#                 you risk an OOM kill.</span></span>
+<span class="line"><span style="color:#24292e;">repl-diskless-load disabled</span></span>
+<span class="line"><span style="color:#24292e;"></span></span>
+<span class="line"><span style="color:#24292e;"># Master send PINGs to its replicas in a predefined interval. It&#39;s possible to</span></span>
+<span class="line"><span style="color:#24292e;"># change this interval with the repl_ping_replica_period option. The default</span></span>
+<span class="line"><span style="color:#24292e;"># value is 10 seconds.</span></span>
+<span class="line"><span style="color:#24292e;">#</span></span>
+<span class="line"><span style="color:#24292e;"># repl-ping-replica-period 10</span></span>
+<span class="line"><span style="color:#24292e;"></span></span>
+<span class="line"><span style="color:#24292e;"># The following option sets the replication timeout for:</span></span>
+<span class="line"><span style="color:#24292e;">#</span></span>
+<span class="line"><span style="color:#24292e;"># 1) Bulk transfer I/O during SYNC, from the point of view of replica.</span></span>
+<span class="line"><span style="color:#24292e;"># 2) Master timeout from the point of view of replicas (data, pings).</span></span>
+<span class="line"><span style="color:#24292e;"># 3) Replica timeout from the point of view of masters (REPLCONF ACK pings).</span></span>
+<span class="line"><span style="color:#24292e;">#</span></span>
+<span class="line"><span style="color:#24292e;"># It is important to make sure that this value is greater than the value</span></span>
+<span class="line"><span style="color:#24292e;"># specified for repl-ping-replica-period otherwise a timeout will be detected</span></span>
+<span class="line"><span style="color:#24292e;"># every time there is low traffic between the master and the replica. The default</span></span>
+<span class="line"><span style="color:#24292e;"># value is 60 seconds.</span></span>
+<span class="line"><span style="color:#24292e;">#</span></span>
+<span class="line"><span style="color:#24292e;"># repl-timeout 60</span></span>
+<span class="line"><span style="color:#24292e;"></span></span>
+<span class="line"><span style="color:#24292e;"># Disable TCP_NODELAY on the replica socket after SYNC?</span></span>
+<span class="line"><span style="color:#24292e;">#</span></span>
+<span class="line"><span style="color:#24292e;"># If you select &quot;yes&quot; Redis will use a smaller number of TCP packets and</span></span>
+<span class="line"><span style="color:#24292e;"># less bandwidth to send data to replicas. But this can add a delay for</span></span>
+<span class="line"><span style="color:#24292e;"># the data to appear on the replica side, up to 40 milliseconds with</span></span>
+<span class="line"><span style="color:#24292e;"># Linux kernels using a default configuration.</span></span>
+<span class="line"><span style="color:#24292e;">#</span></span>
+<span class="line"><span style="color:#24292e;"># If you select &quot;no&quot; the delay for data to appear on the replica side will</span></span>
+<span class="line"><span style="color:#24292e;"># be reduced but more bandwidth will be used for replication.</span></span>
+<span class="line"><span style="color:#24292e;">#</span></span>
+<span class="line"><span style="color:#24292e;"># By default we optimize for low latency, but in very high traffic conditions</span></span>
+<span class="line"><span style="color:#24292e;"># or when the master and replicas are many hops away, turning this to &quot;yes&quot; may</span></span>
+<span class="line"><span style="color:#24292e;"># be a good idea.</span></span>
+<span class="line"><span style="color:#24292e;">repl-disable-tcp-nodelay no</span></span>
+<span class="line"><span style="color:#24292e;"></span></span>
+<span class="line"><span style="color:#24292e;"># Set the replication backlog size. The backlog is a buffer that accumulates</span></span>
+<span class="line"><span style="color:#24292e;"># replica data when replicas are disconnected for some time, so that when a</span></span>
+<span class="line"><span style="color:#24292e;"># replica wants to reconnect again, often a full resync is not needed, but a</span></span>
+<span class="line"><span style="color:#24292e;"># partial resync is enough, just passing the portion of data the replica</span></span>
+<span class="line"><span style="color:#24292e;"># missed while disconnected.</span></span>
+<span class="line"><span style="color:#24292e;">#</span></span>
+<span class="line"><span style="color:#24292e;"># The bigger the replication backlog, the longer the replica can endure the</span></span>
+<span class="line"><span style="color:#24292e;"># disconnect and later be able to perform a partial resynchronization.</span></span>
+<span class="line"><span style="color:#24292e;">#</span></span>
+<span class="line"><span style="color:#24292e;"># The backlog is only allocated if there is at least one replica connected.</span></span>
+<span class="line"><span style="color:#24292e;">#</span></span>
+<span class="line"><span style="color:#24292e;"># repl-backlog-size 1mb</span></span>
+<span class="line"><span style="color:#24292e;"></span></span>
+<span class="line"><span style="color:#24292e;"># After a master has no connected replicas for some time, the backlog will be</span></span>
+<span class="line"><span style="color:#24292e;"># freed. The following option configures the amount of seconds that need to</span></span>
+<span class="line"><span style="color:#24292e;"># elapse, starting from the time the last replica disconnected, for the backlog</span></span>
+<span class="line"><span style="color:#24292e;"># buffer to be freed.</span></span>
+<span class="line"><span style="color:#24292e;">#</span></span>
+<span class="line"><span style="color:#24292e;"># Note that replicas never free the backlog for timeout, since they may be</span></span>
+<span class="line"><span style="color:#24292e;"># promoted to masters later, and should be able to correctly &quot;partially</span></span>
+<span class="line"><span style="color:#24292e;"># resynchronize&quot; with other replicas: hence they should always accumulate backlog.</span></span>
+<span class="line"><span style="color:#24292e;">#</span></span>
+<span class="line"><span style="color:#24292e;"># A value of 0 means to never release the backlog.</span></span>
+<span class="line"><span style="color:#24292e;">#</span></span>
+<span class="line"><span style="color:#24292e;"># repl-backlog-ttl 3600</span></span>
+<span class="line"><span style="color:#24292e;"></span></span>
+<span class="line"><span style="color:#24292e;"># The replica priority is an integer number published by Redis in the INFO</span></span>
+<span class="line"><span style="color:#24292e;"># output. It is used by Redis Sentinel in order to select a replica to promote</span></span>
+<span class="line"><span style="color:#24292e;"># into a master if the master is no longer working correctly.</span></span>
+<span class="line"><span style="color:#24292e;">#</span></span>
+<span class="line"><span style="color:#24292e;"># A replica with a low priority number is considered better for promotion, so</span></span>
+<span class="line"><span style="color:#24292e;"># for instance if there are three replicas with priority 10, 100, 25 Sentinel</span></span>
+<span class="line"><span style="color:#24292e;"># will pick the one with priority 10, that is the lowest.</span></span>
+<span class="line"><span style="color:#24292e;">#</span></span>
+<span class="line"><span style="color:#24292e;"># However a special priority of 0 marks the replica as not able to perform the</span></span>
+<span class="line"><span style="color:#24292e;"># role of master, so a replica with priority of 0 will never be selected by</span></span>
+<span class="line"><span style="color:#24292e;"># Redis Sentinel for promotion.</span></span>
+<span class="line"><span style="color:#24292e;">#</span></span>
+<span class="line"><span style="color:#24292e;"># By default the priority is 100.</span></span>
+<span class="line"><span style="color:#24292e;">replica-priority 100</span></span>
+<span class="line"><span style="color:#24292e;"></span></span>
+<span class="line"><span style="color:#24292e;"># The propagation error behavior controls how Redis will behave when it is</span></span>
+<span class="line"><span style="color:#24292e;"># unable to handle a command being processed in the replication stream from a master</span></span>
+<span class="line"><span style="color:#24292e;"># or processed while reading from an AOF file. Errors that occur during propagation</span></span>
+<span class="line"><span style="color:#24292e;"># are unexpected, and can cause data inconsistency. However, there are edge cases</span></span>
+<span class="line"><span style="color:#24292e;"># in earlier versions of Redis where it was possible for the server to replicate or persist</span></span>
+<span class="line"><span style="color:#24292e;"># commands that would fail on future versions. For this reason the default behavior</span></span>
+<span class="line"><span style="color:#24292e;"># is to ignore such errors and continue processing commands.</span></span>
+<span class="line"><span style="color:#24292e;">#</span></span>
+<span class="line"><span style="color:#24292e;"># If an application wants to ensure there is no data divergence, this configuration</span></span>
+<span class="line"><span style="color:#24292e;"># should be set to &#39;panic&#39; instead. The value can also be set to &#39;panic-on-replicas&#39;</span></span>
+<span class="line"><span style="color:#24292e;"># to only panic when a replica encounters an error on the replication stream. One of</span></span>
+<span class="line"><span style="color:#24292e;"># these two panic values will become the default value in the future once there are</span></span>
+<span class="line"><span style="color:#24292e;"># sufficient safety mechanisms in place to prevent false positive crashes.</span></span>
+<span class="line"><span style="color:#24292e;">#</span></span>
+<span class="line"><span style="color:#24292e;"># propagation-error-behavior ignore</span></span>
+<span class="line"><span style="color:#24292e;"></span></span>
+<span class="line"><span style="color:#24292e;"># Replica ignore disk write errors controls the behavior of a replica when it is</span></span>
+<span class="line"><span style="color:#24292e;"># unable to persist a write command received from its master to disk. By default,</span></span>
+<span class="line"><span style="color:#24292e;"># this configuration is set to &#39;no&#39; and will crash the replica in this condition.</span></span>
+<span class="line"><span style="color:#24292e;"># It is not recommended to change this default, however in order to be compatible</span></span>
+<span class="line"><span style="color:#24292e;"># with older versions of Redis this config can be toggled to &#39;yes&#39; which will just</span></span>
+<span class="line"><span style="color:#24292e;"># log a warning and execute the write command it got from the master.</span></span>
+<span class="line"><span style="color:#24292e;">#</span></span>
+<span class="line"><span style="color:#24292e;"># replica-ignore-disk-write-errors no</span></span>
+<span class="line"><span style="color:#24292e;"></span></span>
+<span class="line"><span style="color:#24292e;"># -----------------------------------------------------------------------------</span></span>
+<span class="line"><span style="color:#24292e;"># By default, Redis Sentinel includes all replicas in its reports. A replica</span></span>
+<span class="line"><span style="color:#24292e;"># can be excluded from Redis Sentinel&#39;s announcements. An unannounced replica</span></span>
+<span class="line"><span style="color:#24292e;"># will be ignored by the &#39;sentinel replicas &lt;master&gt;&#39; command and won&#39;t be</span></span>
+<span class="line"><span style="color:#24292e;"># exposed to Redis Sentinel&#39;s clients.</span></span>
+<span class="line"><span style="color:#24292e;">#</span></span>
+<span class="line"><span style="color:#24292e;"># This option does not change the behavior of replica-priority. Even with</span></span>
+<span class="line"><span style="color:#24292e;"># replica-announced set to &#39;no&#39;, the replica can be promoted to master. To</span></span>
+<span class="line"><span style="color:#24292e;"># prevent this behavior, set replica-priority to 0.</span></span>
+<span class="line"><span style="color:#24292e;">#</span></span>
+<span class="line"><span style="color:#24292e;"># replica-announced yes</span></span>
+<span class="line"><span style="color:#24292e;"></span></span>
+<span class="line"><span style="color:#24292e;"># It is possible for a master to stop accepting writes if there are less than</span></span>
+<span class="line"><span style="color:#24292e;"># N replicas connected, having a lag less or equal than M seconds.</span></span>
+<span class="line"><span style="color:#24292e;">#</span></span>
+<span class="line"><span style="color:#24292e;"># The N replicas need to be in &quot;online&quot; state.</span></span>
+<span class="line"><span style="color:#24292e;">#</span></span>
+<span class="line"><span style="color:#24292e;"># The lag in seconds, that must be &lt;= the specified value, is calculated from</span></span>
+<span class="line"><span style="color:#24292e;"># the last ping received from the replica, that is usually sent every second.</span></span>
+<span class="line"><span style="color:#24292e;">#</span></span>
+<span class="line"><span style="color:#24292e;"># This option does not GUARANTEE that N replicas will accept the write, but</span></span>
+<span class="line"><span style="color:#24292e;"># will limit the window of exposure for lost writes in case not enough replicas</span></span>
+<span class="line"><span style="color:#24292e;"># are available, to the specified number of seconds.</span></span>
+<span class="line"><span style="color:#24292e;">#</span></span>
+<span class="line"><span style="color:#24292e;"># For example to require at least 3 replicas with a lag &lt;= 10 seconds use:</span></span>
+<span class="line"><span style="color:#24292e;">#</span></span>
+<span class="line"><span style="color:#24292e;"># min-replicas-to-write 3</span></span>
+<span class="line"><span style="color:#24292e;"># min-replicas-max-lag 10</span></span>
+<span class="line"><span style="color:#24292e;">#</span></span>
+<span class="line"><span style="color:#24292e;"># Setting one or the other to 0 disables the feature.</span></span>
+<span class="line"><span style="color:#24292e;">#</span></span>
+<span class="line"><span style="color:#24292e;"># By default min-replicas-to-write is set to 0 (feature disabled) and</span></span>
+<span class="line"><span style="color:#24292e;"># min-replicas-max-lag is set to 10.</span></span>
+<span class="line"><span style="color:#24292e;"></span></span>
+<span class="line"><span style="color:#24292e;"># A Redis master is able to list the address and port of the attached</span></span>
+<span class="line"><span style="color:#24292e;"># replicas in different ways. For example the &quot;INFO replication&quot; section</span></span>
+<span class="line"><span style="color:#24292e;"># offers this information, which is used, among other tools, by</span></span>
+<span class="line"><span style="color:#24292e;"># Redis Sentinel in order to discover replica instances.</span></span>
+<span class="line"><span style="color:#24292e;"># Another place where this info is available is in the output of the</span></span>
+<span class="line"><span style="color:#24292e;"># &quot;ROLE&quot; command of a master.</span></span>
+<span class="line"><span style="color:#24292e;">#</span></span>
+<span class="line"><span style="color:#24292e;"># The listed IP address and port normally reported by a replica is</span></span>
+<span class="line"><span style="color:#24292e;"># obtained in the following way:</span></span>
+<span class="line"><span style="color:#24292e;">#</span></span>
+<span class="line"><span style="color:#24292e;">#   IP: The address is auto detected by checking the peer address</span></span>
+<span class="line"><span style="color:#24292e;">#   of the socket used by the replica to connect with the master.</span></span>
+<span class="line"><span style="color:#24292e;">#</span></span>
+<span class="line"><span style="color:#24292e;">#   Port: The port is communicated by the replica during the replication</span></span>
+<span class="line"><span style="color:#24292e;">#   handshake, and is normally the port that the replica is using to</span></span>
+<span class="line"><span style="color:#24292e;">#   listen for connections.</span></span>
+<span class="line"><span style="color:#24292e;">#</span></span>
+<span class="line"><span style="color:#24292e;"># However when port forwarding or Network Address Translation (NAT) is</span></span>
+<span class="line"><span style="color:#24292e;"># used, the replica may actually be reachable via different IP and port</span></span>
+<span class="line"><span style="color:#24292e;"># pairs. The following two options can be used by a replica in order to</span></span>
+<span class="line"><span style="color:#24292e;"># report to its master a specific set of IP and port, so that both INFO</span></span>
+<span class="line"><span style="color:#24292e;"># and ROLE will report those values.</span></span>
+<span class="line"><span style="color:#24292e;">#</span></span>
+<span class="line"><span style="color:#24292e;"># There is no need to use both the options if you need to override just</span></span>
+<span class="line"><span style="color:#24292e;"># the port or the IP address.</span></span>
+<span class="line"><span style="color:#24292e;">#</span></span>
+<span class="line"><span style="color:#24292e;"># replica-announce-ip 5.5.5.5</span></span>
+<span class="line"><span style="color:#24292e;"># replica-announce-port 1234</span></span></code></pre></div><h2 id="集群配置" tabindex="-1">集群配置 <a class="header-anchor" href="#集群配置" aria-label="Permalink to &quot;集群配置&quot;">​</a></h2><br><h2 id="参考" tabindex="-1">参考 <a class="header-anchor" href="#参考" aria-label="Permalink to &quot;参考&quot;">​</a></h2><p><a href="https://redis.io/topics/persistence" target="_blank" rel="noreferrer">Redis#persistence</a></p><p><a href="http://antirez.com/post/redis-persistence-demystified.html" target="_blank" rel="noreferrer">redis-persistence-demystified</a></p></div></div></main><footer class="VPDocFooter" data-v-6b87e69f data-v-ef5dee53><!--[--><!--]--><div class="edit-info" data-v-ef5dee53><!----><div class="last-updated" data-v-ef5dee53><p class="VPLastUpdated" data-v-ef5dee53 data-v-7e05ebdb>上次更新: <time datetime="2023-11-06T09:18:33.000Z" data-v-7e05ebdb></time></p></div></div><!----></footer><!--[--><!--[--><!--[--><!--[--><!--]--><div id="giscus-comment" class="comment" data-pagefind-ignore="all" data-v-af5a5a9a data-v-3db7ae48><div class="el-affix comment-btn" style="height:;width:;" data-v-3db7ae48><div class="" style=""><!--[--><button ariadisabled="false" type="button" class="el-button el-button--primary is-plain" style="" data-v-3db7ae48><i class="el-icon" style=""><!--[--><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024"><path fill="currentColor" d="M736 504a56 56 0 1 1 0-112 56 56 0 0 1 0 112zm-224 0a56 56 0 1 1 0-112 56 56 0 0 1 0 112zm-224 0a56 56 0 1 1 0-112 56 56 0 0 1 0 112zM128 128v640h192v160l224-160h352V128H128z"></path></svg><!--]--></i><span class=""><!--[--> 评论 <!--]--></span></button><!--]--></div></div><!----></div><!--]--><!--]--><!--]--></div></div></div><!--[--><!--]--></div></div><!----><!--[--><!--]--></div></div>
+    <script>window.__VP_HASH_MAP__=JSON.parse("{\"posts_algorithm_位运算.md\":\"0d86b2dc\",\"posts_article_文章整理.md\":\"dc32b219\",\"posts_algorithm_常见算法.md\":\"cb736894\",\"index.md\":\"a44f9f69\",\"about.md\":\"36b6fce9\",\"posts_be_dubbo_dubbo.md\":\"54d58d63\",\"posts_be_java_java io_java io.md\":\"2eaeb3c8\",\"posts_be_jvm_jvm.md\":\"137ae100\",\"posts_be_java_java lang_java lang.md\":\"22efd43e\",\"posts_be_java_java 进阶_java 进阶.md\":\"f3b1ca14\",\"posts_be_maven_maven.md\":\"644d3975\",\"posts_be_mybitis_mybatis-plus-generator.md\":\"d4859293\",\"posts_be_java_java 线程池_java 线程池.md\":\"879c1ea3\",\"posts_be_java_walkthroughjava.md\":\"671746de\",\"posts_be_java_java 基础_java 基础.md\":\"2c38aac0\",\"posts_be_java_java 多线程_java 多线程.md\":\"03bce840\",\"posts_be_java_java juc_java juc.md\":\"706ca2c9\",\"posts_be_mybitis_mybatis.md\":\"a151f219\",\"posts_be_java_java 集合_java 集合.md\":\"ad9ad223\",\"posts_be_java_java 反射_范型_java.md\":\"fdcef675\",\"posts_be_spring_ioc_事务_ioc_事务.md\":\"d8006616\",\"posts_be_spring_ioc_di_ioc_di.md\":\"a20e9766\",\"posts_be_spring_spring.md\":\"ddfaf286\",\"posts_db_clickhouse_clickhouse.md\":\"4abcf063\",\"posts_be_springcloud_index.md\":\"801a1da1\",\"posts_be_springboot_thinkinspringboot_index.md\":\"3abed1fa\",\"posts_be_springsecurity_springsecurity.md\":\"485f583e\",\"posts_be_springweb_springmvc_springmvc.md\":\"3a8724ec\",\"posts_db_mysql_mysql.md\":\"491ee135\",\"posts_linux_安装配置_manjora 安装配置.md\":\"e394ae39\",\"posts_db_mysql_thinkinmysql.md\":\"03972f1c\",\"posts_devops_kubernetes_k8s.md\":\"c5184f72\",\"posts_devops_grafana_grafana.md\":\"72f7e547\",\"posts_fe_react_react typescript.md\":\"bd6e2a75\",\"posts_db_redis_redis 数据类型.md\":\"96411a8e\",\"posts_fe_nextjs_next.js.md\":\"91daecde\",\"posts_mw_kafka_kafkasource.md\":\"1160388c\",\"posts_fe_react_react.md\":\"0419a072\",\"posts_fe_vuejs_vuejs.md\":\"42818bf6\",\"posts_mw_rocketmq_rocketmq_rocketmq.md\":\"3832b133\",\"posts_devops_nginx_nginx.md\":\"2e016a84\",\"posts_fe_css_css.md\":\"f6ad44e3\",\"posts_fe_node.js_node.js.md\":\"63b91152\",\"posts_mw_rocketmq_rocketmq model_rocketmq model.md\":\"35536e89\",\"posts_fe_项目配置.md\":\"4feee680\",\"posts_fe_typescript_typescript.md\":\"e317ab4e\",\"posts_mw_rocketmq_rocketmq source_rocketmq source.md\":\"7b37261c\",\"posts_linux_安装配置_centos 配置.md\":\"5527f59a\",\"posts_db_redis_redis.md\":\"7c3ed40b\",\"posts_linux_安装配置_ubuntu 安装配置.md\":\"e96cc7c0\",\"posts_math_latex.md\":\"91e5b39b\",\"posts_mw_kafka_kafka.md\":\"9363d797\",\"posts_mw_elasticsearch_elasticsearch.md\":\"235f63dc\",\"posts_mw_activemq_index.md\":\"ba3e51ac\",\"posts_linux_linux.md\":\"03e3cf7b\",\"posts_mw_netty_netty.md\":\"f263104d\",\"posts_计算机网络_计算机网络.md\":\"fc0f76e5\",\"posts_工具_ffmpeg.md\":\"44627ec5\",\"posts_数据结构_数据结构.md\":\"fb0161ff\",\"posts_db_redis_redis 配置详解.md\":\"559e08b6\",\"posts_devops_kubernetes_kubernetes.md\":\"77d96964\",\"posts_设计模式_设计模式.md\":\"881ba8de\",\"posts_math_math.md\":\"7a85ef1b\",\"posts_db_timescaledb_timescaledb.md\":\"c0096337\",\"posts_python_python.md\":\"3ec32aff\",\"posts_be_springboot_springboot_springboot.md\":\"68ef93c1\",\"posts_devops_docker_docker.md\":\"41dbe1f2\",\"posts_devops_gitlab_gitlab.md\":\"a334ce4a\",\"posts_db_postgresql_postgresql.md\":\"5b98d31f\",\"posts_fe_javascript_javascript.md\":\"ade666ee\"}");window.__VP_SITE_DATA__=JSON.parse("{\"lang\":\"zh-cn\",\"dir\":\"ltr\",\"title\":\"Gnl\",\"description\":\"Gnl's blog\",\"base\":\"/\",\"head\":[],\"appearance\":true,\"themeConfig\":{\"blog\":{\"pagesData\":[{\"route\":\"/about\",\"meta\":{\"sidebar\":false,\"title\":\"关于我\",\"date\":\"2023-11-06 09:18:33\",\"tag\":[],\"description\":\"\\n> gnl0ATqq.com\",\"cover\":\"\"}},{\"route\":\"/posts/algorithm/位运算\",\"meta\":{\"tag\":[\"算法\"],\"description\":\"位运算基础以及常见用法\",\"title\":\"位运算\",\"date\":\"2023-11-06 09:18:33\",\"cover\":\"\"}},{\"route\":\"/posts/algorithm/常见算法\",\"meta\":{\"tag\":[\"算法\"],\"description\":\"常见算法思想汇总；分治、动态规划、贪心、回溯、分支界限\",\"title\":\"常见算法\",\"date\":\"2023-11-06 09:18:33\",\"cover\":\"\"}},{\"route\":\"/posts/article/文章整理\",\"meta\":{\"description\":\"文章推荐\",\"title\":\"文章整理\",\"date\":\"2023-11-06 09:18:33\",\"tag\":[],\"cover\":\"\"}},{\"route\":\"/posts/fe/项目配置\",\"meta\":{\"description\":\"前端项目配置\",\"tag\":[\"前端\"],\"title\":\"前端项目配置\",\"date\":\"2023-11-06 09:18:33\",\"cover\":\"\"}},{\"route\":\"/posts/linux/Linux\",\"meta\":{\"description\":\"Linux 笔记\",\"tag\":[\"Linux\"],\"title\":\"Linux\",\"date\":\"2023-11-06 09:18:33\",\"cover\":\"\"}},{\"route\":\"/posts/math/Latex\",\"meta\":{\"description\":\"LateX 常用语法\",\"tag\":[\"LateX\"],\"title\":\"LateX\",\"date\":\"2023-11-06 09:18:33\",\"cover\":\"\"}},{\"route\":\"/posts/math/Math\",\"meta\":{\"description\":\"基础数学函数\",\"title\":\"Math\",\"date\":\"2023-11-06 09:18:33\",\"tag\":[],\"cover\":\"\"}},{\"route\":\"/posts/python/Python\",\"meta\":{\"description\":\"Python 笔记\",\"tag\":[\"Python\"],\"title\":\"Python\",\"date\":\"2023-11-06 09:18:33\",\"cover\":\"\"}},{\"route\":\"/posts/工具/ffmpeg\",\"meta\":{\"description\":\"ffmpeg 常用命令\",\"tag\":[\"ffmpeg\"],\"title\":\"ffmpeg\",\"date\":\"2023-11-06 09:18:33\",\"cover\":\"\"}},{\"route\":\"/posts/数据结构/数据结构\",\"meta\":{\"description\":\"算法与数据结构笔记\",\"tag\":[\"算法\",\"数据结构\"],\"title\":\"算法与数据结构\",\"date\":\"2023-11-06 09:18:33\",\"cover\":\"https://img2018.cnblogs.com/blog/1648163/201909/1648163-20190919085122774-376085378.png\"}},{\"route\":\"/posts/计算机网络/计算机网络\",\"meta\":{\"description\":\"计算机网络笔记\",\"title\":\"计算机网络\",\"date\":\"2023-11-06 09:18:33\",\"tag\":[],\"cover\":\"\"}},{\"route\":\"/posts/设计模式/设计模式\",\"meta\":{\"description\":\"Java 设计模式笔记\",\"tag\":[\"设计模式\",\"Java\"],\"title\":\"设计模式\",\"date\":\"2023-11-06 09:18:33\",\"cover\":\"\"}},{\"route\":\"/posts/be/Dubbo/Dubbo\",\"meta\":{\"description\":\"Apache Dubbo 是一款 RPC 服务开发框架，用于解决微服务架构下的服务治理与通信问题。\",\"tag\":[\"微服务\",\"Dubbo\",\"后端\"],\"title\":\"Dubbo\",\"date\":\"2023-11-06 09:18:33\",\"cover\":\"\"}},{\"route\":\"/posts/be/JVM/JVM\",\"meta\":{\"description\":\"JVM 详解，包括 JVM 体系结构、垃圾回收算法等\",\"tag\":[\"Java\",\"JVM\",\"后端\"],\"title\":\"JVM\",\"date\":\"2023-11-06 09:18:33\",\"cover\":\"\"}},{\"route\":\"/posts/be/Java/WalkThroughJava\",\"meta\":{\"title\":\"Walk Though Java\",\"date\":\"2023-11-06 09:18:33\",\"tag\":[],\"description\":\" 多线程\\n 多线程异常处理方案\\n在使用 try-catch 的时候有一个条件通常会被忽略：try-catch 只能处理当前线程抛出的异常，在多线程情况下是无法 catch 到其他线程抛出的异常的。\\n看\",\"cover\":\"\"}},{\"route\":\"/posts/be/Maven/Maven\",\"meta\":{\"description\":\"Maven 笔记\",\"tag\":[\"后端\"],\"title\":\"Maven\",\"date\":\"2023-11-06 09:18:33\",\"cover\":\"\"}},{\"route\":\"/posts/be/MyBitis/MyBatis\",\"meta\":{\"description\":\"MyBatis 详解\",\"tag\":[\"MyBatis\",\"后端\"],\"title\":\"MyBatis\",\"date\":\"2023-11-06 09:18:33\",\"cover\":\"\"}},{\"route\":\"/posts/be/MyBitis/mybatis-plus-generator\",\"meta\":{\"description\":\"MyBatis 代码生成器\",\"tag\":[\"MyBatis\",\"后端\"],\"title\":\"mybatis-plus-generator\",\"date\":\"2023-11-06 09:18:33\",\"cover\":\"\"}},{\"route\":\"/posts/be/Spring/Spring\",\"meta\":{\"description\":\"Spring 框架详解\",\"tag\":[\"Spring\",\"后端\"],\"title\":\"Spring\",\"date\":\"2023-11-06 09:18:33\",\"cover\":\"\"}},{\"route\":\"/posts/be/SpringCloud/index\",\"meta\":{\"description\":\"SpringCloud 详解\",\"tag\":[\"SpringCloud\",\"后端\",\"微服务\"],\"title\":\"SpringCloud\",\"date\":\"2023-11-06 09:18:33\",\"cover\":\"\"}},{\"route\":\"/posts/be/SpringSecurity/SpringSecurity\",\"meta\":{\"description\":\"SpringSecurity 笔记\",\"tag\":[\"Spring\",\"后端\"],\"title\":\"Spring Security\",\"date\":\"2023-11-06 09:18:33\",\"cover\":\"\"}},{\"route\":\"/posts/db/ClickHouse/ClickHouse\",\"meta\":{\"description\":\"ClickHouse 笔记\",\"tag\":[\"数据库\"],\"title\":\"ClickHouse\",\"date\":\"2023-11-06 09:18:33\",\"cover\":\"\"}},{\"route\":\"/posts/db/MySQL/MySQL\",\"meta\":{\"description\":\"MySQL 详解\",\"tag\":[\"MySQL\",\"数据库\"],\"title\":\"MySQL\",\"date\":\"2023-11-06 09:18:33\",\"cover\":\"\"}},{\"route\":\"/posts/db/MySQL/ThinkInMySQL\",\"meta\":{\"description\":\"在使用 MySQL 的过程中的一些思考\",\"sticky\":true,\"tag\":[\"MySQL\",\"数据库\"],\"title\":\"Think In MySQL\",\"date\":\"2023-11-06 09:18:33\",\"cover\":\"\"}},{\"route\":\"/posts/db/PostgreSQL/PostgreSQL\",\"meta\":{\"description\":\"PostgreSQL 详解，包含基础内容、高可用架构等\",\"top\":1,\"sticky\":true,\"tag\":[\"PostgreSQL\",\"数据库\"],\"title\":\"PostgreSQL\",\"date\":\"2023-11-06 09:18:33\",\"cover\":\"\"}},{\"route\":\"/posts/db/Redis/Redis 数据类型\",\"meta\":{\"description\":\"Redis 数据类型详解\",\"tag\":[\"Redis\",\"NoSQL\",\"数据库\"],\"title\":\"Redis 数据类型\",\"date\":\"2023-11-06 09:18:33\",\"cover\":\"\"}},{\"route\":\"/posts/db/Redis/Redis 配置详解\",\"meta\":{\"description\":\"Redis 配置详解\",\"tag\":[\"Redis\",\"NoSQL\",\"数据库\"],\"title\":\"Redis 配置详解\",\"date\":\"2023-11-06 09:18:33\",\"cover\":\"\"}},{\"route\":\"/posts/db/Redis/Redis\",\"meta\":{\"description\":\"Redis 详解\",\"tag\":[\"Redis\",\"NoSQL\",\"数据库\"],\"title\":\"Redis\",\"date\":\"2023-11-06 09:18:33\",\"cover\":\"\"}},{\"route\":\"/posts/db/TimescaleDB/TimescaleDB\",\"meta\":{\"description\":\"TimescaleDB 详解\",\"top\":5,\"sticky\":true,\"tag\":[\"TimescaleDB\",\"时序数据库\",\"数据库\"],\"title\":\"TimescaleDB\",\"date\":\"2023-11-06 09:18:33\",\"cover\":\"\"}},{\"route\":\"/posts/devops/Docker/Docker\",\"meta\":{\"description\":\"Docker 详解\",\"tag\":[\"Docker\",\"DevOps\"],\"title\":\"Docker\",\"date\":\"2023-11-06 09:18:33\",\"cover\":\"\"}},{\"route\":\"/posts/devops/GitLab/GitLab\",\"meta\":{\"description\":\"GitLab 私服搭建\",\"top\":3,\"tag\":[\"GitLab\"],\"title\":\"GitLab\",\"date\":\"2023-11-06 09:18:33\",\"cover\":\"\"}},{\"route\":\"/posts/devops/Grafana/Grafana\",\"meta\":{\"description\":\"Grafana 监控搭建\",\"top\":2,\"tag\":[\"Grafana\",\"DevOps\"],\"title\":\"Grafana\",\"date\":\"2023-11-06 09:18:33\",\"cover\":\"\"}},{\"route\":\"/posts/devops/Kubernetes/K8S\",\"meta\":{\"title\":\"Kubernetes\",\"date\":\"2023-11-06 09:18:33\",\"tag\":[],\"description\":\" 虚拟化容器\\n Docker\\nDocker 与传统虚拟化方式的不同之处：Docker 容器内的应用进程直接运行于宿主的内核，容器内没有自己的内核，没有进行硬件虚拟；而传统虚拟机技术是虚拟出一套硬件后，\",\"cover\":\"\"}},{\"route\":\"/posts/devops/Kubernetes/Kubernetes\",\"meta\":{\"description\":\"K8s 详解\",\"top\":4,\"sticky\":true,\"tag\":[\"K8s\",\"DevOps\"],\"title\":\"K8s\",\"date\":\"2023-11-06 09:18:33\",\"cover\":\"https://d33wubrfki0l68.cloudfront.net/99d9808dcbf2880a996ed50d308a186b5900cec9/40b94/docs/tutorials/kubernetes-basics/public/images/module_01_cluster.svg\"}},{\"route\":\"/posts/devops/Nginx/Nginx\",\"meta\":{\"description\":\"Nginx 详解\",\"tag\":[\"Nginx\"],\"title\":\"Nginx\",\"date\":\"2023-11-06 09:18:33\",\"cover\":\"\"}},{\"route\":\"/posts/fe/CSS/CSS\",\"meta\":{\"description\":\"CSS 详解\",\"tag\":[\"前端\"],\"title\":\"CSS\",\"date\":\"2023-11-06 09:18:33\",\"cover\":\"\"}},{\"route\":\"/posts/fe/JavaScript/JavaScript\",\"meta\":{\"description\":\"JavaScript 详解\",\"outline\":[2,3],\"tag\":[\"JavaScript\",\"前端\"],\"title\":\"JavaScript\",\"date\":\"2023-11-06 09:18:33\",\"cover\":\"\"}},{\"route\":\"/posts/fe/Nextjs/Next.js\",\"meta\":{\"description\":\"Next.js 笔记\",\"tag\":[\"React\",\"前端\"],\"title\":\"Next.js\",\"date\":\"2023-11-06 09:18:33\",\"cover\":\"\"}},{\"route\":\"/posts/fe/Node.js/Node.js\",\"meta\":{\"description\":\"Node.js 笔记\",\"tag\":[\"前端\"],\"title\":\"Node.js\",\"date\":\"2023-11-06 09:18:33\",\"cover\":\"\"}},{\"route\":\"/posts/fe/React/React TypeScript\",\"meta\":{\"description\":\"React + TypeScript 笔记\",\"tag\":[\"React\",\"TypeScript\",\"前端\"],\"title\":\"React + TypeScript\",\"date\":\"2023-11-06 09:18:33\",\"cover\":\"\"}},{\"route\":\"/posts/fe/React/React\",\"meta\":{\"description\":\"React 笔记\",\"tag\":[\"React\",\"前端\"],\"title\":\"React\",\"date\":\"2023-11-06 09:18:33\",\"cover\":\"\"}},{\"route\":\"/posts/fe/TypeScript/TypeScript\",\"meta\":{\"description\":\"TypeScript 笔记\",\"tag\":[\"TypeScript\",\"前端\"],\"title\":\"TypeScript\",\"date\":\"2023-11-06 09:18:33\",\"cover\":\"\"}},{\"route\":\"/posts/fe/Vuejs/Vuejs\",\"meta\":{\"description\":\"Vue.js 笔记\",\"tag\":[\"Vue.js\",\"前端\"],\"title\":\"Vue.js\",\"date\":\"2023-11-06 09:18:33\",\"cover\":\"\"}},{\"route\":\"/posts/linux/安装配置/CentOS 配置\",\"meta\":{\"description\":\"CentOS 笔记\",\"tag\":[\"Linux\"],\"title\":\"CentOS 笔记\",\"date\":\"2023-11-06 09:18:33\",\"cover\":\"\"}},{\"route\":\"/posts/linux/安装配置/Manjora 安装配置\",\"meta\":{\"description\":\"Manjora 笔记\",\"tag\":[\"Linux\"],\"title\":\"Manjora 安装\",\"date\":\"2023-11-06 09:18:33\",\"cover\":\"\"}},{\"route\":\"/posts/linux/安装配置/Ubuntu 安装配置\",\"meta\":{\"description\":\"Ubuntu 安装\",\"tag\":[\"Linux\"],\"title\":\"Ubuntu 安装\",\"date\":\"2023-11-06 09:18:33\",\"cover\":\"\"}},{\"route\":\"/posts/mw/ActiveMQ/index\",\"meta\":{\"description\":\"ActiveMQ 详解\",\"tag\":[\"MQ\",\"中间件\"],\"title\":\"ActiveMQ\",\"date\":\"2023-11-06 09:18:33\",\"cover\":\"\"}},{\"route\":\"/posts/mw/Elasticsearch/Elasticsearch\",\"meta\":{\"description\":\"Elasticsearch 详解\",\"outline\":[2,3],\"tag\":[\"Elasticsearch\",\"中间件\"],\"title\":\"Elasticsearch\",\"date\":\"2023-11-06 09:18:33\",\"cover\":\"\"}},{\"route\":\"/posts/mw/Kafka/Kafka\",\"meta\":{\"description\":\"Kafka 是一个分布式流处理平台，基于发布/订阅模式的消息队列，主要应用于大数据实时处理领域。使用 Kafka 可以帮助进行解耦、异步、削峰等操作。\",\"tag\":[\"Kafka\",\"MQ\",\"中间件\"],\"title\":\"Kafka\",\"date\":\"2023-11-06 09:18:33\",\"cover\":\"\"}},{\"route\":\"/posts/mw/Kafka/KafkaSource\",\"meta\":{\"description\":\"Kafka 源码深入\",\"tag\":[\"Kafka\",\"MQ\",\"中间件\"],\"title\":\"Kafka Source\",\"date\":\"2023-11-06 09:18:33\",\"cover\":\"\"}},{\"route\":\"/posts/mw/Netty/Netty\",\"meta\":{\"description\":\"基于 Java NIO 封装的网络框架\",\"tag\":[\"Netty\"],\"title\":\"Netty\",\"date\":\"2023-11-06 09:18:33\",\"cover\":\"\"}},{\"route\":\"/posts/be/Java/Java IO/Java IO\",\"meta\":{\"description\":\"Java 中的 IO 操作，包括 BIO 和 NIO\",\"tag\":[\"Java\",\"后端\"],\"title\":\"Java IO\",\"date\":\"2023-11-06 09:18:33\",\"cover\":\"\"}},{\"route\":\"/posts/be/Java/Java JUC/Java JUC\",\"meta\":{\"description\":\"JUC 指的是 `java.util.concurrent` 包及其子包下用于并发场景的类\",\"tag\":[\"Java\",\"后端\"],\"title\":\"JUC\",\"date\":\"2023-11-06 09:18:33\",\"cover\":\"\"}},{\"route\":\"/posts/be/Java/Java lang/Java lang\",\"meta\":{\"title\":\"Java lang\",\"date\":\"2023-11-06 09:18:33\",\"tag\":[],\"description\":\"\\n Runtime\\n每一个 Java 程序都有一个单实例的 Runtime 对象，它允许正在运行的 Java 程序能够获取到运行环境信息。\\n一些常用的方法如下：\\n* `getRuntime()`\\n* \",\"cover\":\"\"}},{\"route\":\"/posts/be/Java/Java 反射+范型/Java\",\"meta\":{\"description\":\"Java 反射和泛型详解\",\"tag\":[\"Java\",\"后端\"],\"title\":\"Java 反射和泛型\",\"date\":\"2023-11-06 09:18:33\",\"cover\":\"\"}},{\"route\":\"/posts/be/Java/Java 基础/Java 基础\",\"meta\":{\"description\":\"Java 基础内容\",\"tag\":[\"Java\",\"后端\"],\"title\":\"Java 基础内容\",\"date\":\"2023-11-06 09:18:33\",\"cover\":\"\"}},{\"route\":\"/posts/be/Java/Java 多线程/Java 多线程\",\"meta\":{\"description\":\"Java 多线程详解\",\"tag\":[\"Java\",\"后端\"],\"title\":\"Java 多线程\",\"date\":\"2023-11-06 09:18:33\",\"cover\":\"\"}},{\"route\":\"/posts/be/Java/Java 线程池/Java 线程池\",\"meta\":{\"description\":\"线程池是 Java 中用于管理和复用线程的机制。它包含了一个线程队列，可以用来创建并发执行的任务，提高程序的执行效率\",\"tag\":[\"Java\",\"后端\"],\"title\":\"Java 线程池\",\"date\":\"2023-11-06 09:18:33\",\"cover\":\"\"}},{\"route\":\"/posts/be/Java/Java 进阶/Java 进阶\",\"meta\":{\"description\":\"Java 进阶内容，包括: SPI、JNDI\",\"tag\":[\"Java\",\"后端\"],\"title\":\"Java 进阶\",\"date\":\"2023-11-06 09:18:33\",\"cover\":\"\"}},{\"route\":\"/posts/be/Java/Java 集合/Java 集合\",\"meta\":{\"description\":\"Java 集合部分详解\",\"tag\":[\"Java\",\"后端\"],\"title\":\"Java 集合\",\"date\":\"2023-11-06 09:18:33\",\"cover\":\"\"}},{\"route\":\"/posts/be/Spring/IOC&DI/IOC&DI\",\"meta\":{\"description\":\"Spring IOC&DI\",\"tag\":[\"Spring\",\"后端\"],\"title\":\"Spring\",\"date\":\"2023-11-06 09:18:33\",\"cover\":\"\"}},{\"route\":\"/posts/be/Spring/IOC&事务/IOC&事务\",\"meta\":{\"description\":\"Spring IOC & 事务\",\"tag\":[\"Spring\",\"后端\"],\"title\":\"Spring\",\"date\":\"2023-11-06 09:18:33\",\"cover\":\"\"}},{\"route\":\"/posts/be/SpringBoot/SpringBoot/SpringBoot\",\"meta\":{\"description\":\"SpringBoot 详解\",\"tag\":[\"SpringBoot\",\"后端\"],\"title\":\"SpringBoot\",\"date\":\"2023-11-06 09:18:33\",\"cover\":\"\"}},{\"route\":\"/posts/be/SpringBoot/ThinkInSpringBoot/index\",\"meta\":{\"description\":\"深入 SpringBoot 源码与一点思考\",\"sticky\":true,\"tag\":[\"SpringBoot\",\"后端\"],\"title\":\"Think-in-Springboot\",\"date\":\"2023-11-06 09:18:33\",\"cover\":\"\"}},{\"route\":\"/posts/be/SpringWeb/SpringMVC/SpringMVC\",\"meta\":{\"description\":\"Spring Web MVC 是建立在 Servlet API 上的 Web 框架\",\"tag\":[\"SpringMVC\",\"后端\"],\"title\":\"Spring MVC\",\"date\":\"2023-11-06 09:18:33\",\"cover\":\"\"}},{\"route\":\"/posts/mw/RocketMQ/RocketMQ/RocketMQ\",\"meta\":{\"description\":\"RocketMQ 是一个分布式的中间件服务，采用异步通信模型和发布/订阅消息传输模型。\",\"tag\":[\"RocketMQ\",\"MQ\",\"中间件\"],\"title\":\"RocketMQ\",\"date\":\"2023-11-06 09:18:33\",\"cover\":\"\"}},{\"route\":\"/posts/mw/RocketMQ/RocketMQ Model/RocketMQ Model\",\"meta\":{\"description\":\"RocketMQ 领域模型\",\"tag\":[\"RocketMQ\",\"MQ\",\"中间件\"],\"title\":\"RocketMQ 领域模型\",\"date\":\"2023-11-06 09:18:33\",\"cover\":\"\"}},{\"route\":\"/posts/mw/RocketMQ/RocketMQ Source/RocketMQ Source\",\"meta\":{\"description\":\"RocketMQ 源码解析\",\"tag\":[\"RocketMQ\",\"MQ\",\"中间件\"],\"title\":\"RocketMQ 源码解析\",\"date\":\"2023-11-06 09:18:33\",\"cover\":\"\"}}],\"hotArticle\":{\"title\":\"Pinned\",\"nextText\":\"换一组\",\"pageSize\":5,\"empty\":\"暂无内容\"},\"recommend\":false,\"footer\":{\"copyright\":\"2023-Present | Gnl\",\"version\":false},\"themeColor\":\"el-green\",\"author\":\"Gnl\",\"comment\":{\"repo\":\"gnl00/gnl00.github.io\",\"repoId\":\"R_kgDOGR5o6w\",\"category\":\"Announcements\",\"categoryId\":\"DIC_kwDOGR5o684CatYO\"},\"mermaid\":true},\"lastUpdatedText\":\"上次更新\",\"logo\":\"/logo-transform.png\",\"nav\":[{\"text\":\"首页\",\"link\":\"/\"},{\"text\":\"前端\",\"items\":[{\"text\":\"前端项目工程化\",\"link\":\"/posts/fe/项目配置\"},{\"text\":\"JavaScript\",\"link\":\"/posts/fe/JavaScript/JavaScript\"},{\"text\":\"TypeScript\",\"link\":\"/posts/fe/TypeScript/TypeScript\"},{\"text\":\"React\",\"link\":\"/posts/fe/React/React\"},{\"text\":\"Vue.js\",\"link\":\"/posts/fe/Vuejs/Vuejs\"}]},{\"text\":\"后端\",\"items\":[{\"text\":\"Java\",\"link\":\"/posts/be/Java/Java\"},{\"text\":\"Spring\",\"link\":\"/posts/be/Spring/Spring\"},{\"text\":\"SpringBoot\",\"link\":\"/posts/be/SpringBoot/SpringBoot\"},{\"text\":\"SpringCloud\",\"link\":\"/posts/be/SpringCloud/SpringCloud\"},{\"text\":\"Dubbo\",\"link\":\"/posts/be/Dubbo/Dubbo\"}]},{\"text\":\"数据库\",\"items\":[{\"text\":\"MySQL\",\"link\":\"/posts/db/MySQL/MySQL\"},{\"text\":\"PostgreSQL\",\"link\":\"/posts/db/PostgreSQL/PostgreSQL\"},{\"text\":\"Redis\",\"link\":\"/posts/db/Redis/Redis\"}]},{\"text\":\"中间件\",\"items\":[{\"text\":\"Netty\",\"link\":\"/posts/mw/Netty/Netty\"},{\"text\":\"RocketMQ\",\"link\":\"/posts/mw/RocketMQ/RocketMQ/RocketMQ\"},{\"text\":\"Kafka\",\"link\":\"/posts/mw/Kafka/Kafka\"},{\"text\":\"Elesticsearch\",\"link\":\"/posts/mw/Elesticsearch/Elesticsearch\"}]},{\"text\":\"DevOps\",\"items\":[{\"text\":\"Docker\",\"link\":\"/posts/mw/Docker/Docker\"},{\"text\":\"Kubernetes\",\"link\":\"/posts/mw/Kubernetes/Kubernetes\"},{\"text\":\"GitLab\",\"link\":\"/posts/mw/GitLab/GitLab\"}]},{\"text\":\"关于\",\"link\":\"/about\"}]},\"locales\":{},\"scrollOffset\":90,\"cleanUrls\":false}");</script>
+    
+  </body>
+</html>
