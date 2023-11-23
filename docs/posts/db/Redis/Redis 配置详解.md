@@ -1,5 +1,7 @@
 ---
 description: Redis 配置详解
+top: 7
+sticky: true
 tag: 
   - Redis
   - NoSQL
