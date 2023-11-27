@@ -23,6 +23,8 @@ const navbar = [
       { text: 'SpringBoot', link: '/posts/be/SpringBoot/SpringBoot' },
       { text: 'SpringCloud', link: '/posts/be/SpringCloud/SpringCloud' },
       { text: 'Dubbo', link: '/posts/be/Dubbo/Dubbo' },
+	  { text: 'Netty', link: '/posts/be/Netty/Netty' },
+
     ]
   },
   { 
@@ -36,7 +38,6 @@ const navbar = [
   { 
     text: '中间件', 
     items: [
-      { text: 'Netty', link: '/posts/mw/Netty/Netty' },
       { text: 'RocketMQ', link: '/posts/mw/RocketMQ/RocketMQ/RocketMQ' },
       { text: 'Kafka', link: '/posts/mw/Kafka/Kafka' },
       { text: 'Elesticsearch', link: '/posts/mw/Elesticsearch/Elesticsearch' },
