@@ -1,6 +1,6 @@
 ---
 description: GitLab 私服搭建
-top: 3
+sticky: true
 tag: 
   - GitLab
 ---

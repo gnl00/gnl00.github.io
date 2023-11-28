@@ -1,6 +1,6 @@
 ---
 description: Grafana 监控搭建
-top: 2
+sticky: true
 tag: 
   - Grafana
   - DevOps

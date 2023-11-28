@@ -1,6 +1,6 @@
 ---
 description: K8s 详解
-top: 4
+top: 2
 sticky: true
 tag: 
   - K8s
