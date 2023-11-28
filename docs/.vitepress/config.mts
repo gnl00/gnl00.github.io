@@ -33,6 +33,7 @@ const navbar = [
       { text: 'MySQL', link: '/posts/db/MySQL/MySQL' },
       { text: 'PostgreSQL', link: '/posts/db/PostgreSQL/PostgreSQL' },
       { text: 'Redis', link: '/posts/db/Redis/Redis' },
+      { text: 'TimescaleDB', link: '/posts/db/TimescaleDB/TimescaleDB' },
     ]
   },
   { 
