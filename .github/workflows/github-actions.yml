@@ -21,6 +21,12 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Set Timezone
+        run: |
+          sudo timedatectl set-timezone Asia/Shanghai
+      - name: Show Date
+        run: |
+          date
       - name: Checkout
         uses: actions/checkout@v3
         with:
@@ -32,10 +38,6 @@ jobs:
         with:
           node-version: 18
           cache: npm # or pnpm / yarn
-      - name: Show timezone
-        run: |
-          echo "The timezone is $TZ"
-          date
       - name: Setup Pages
         uses: actions/configure-pages@v3
       - name: Install dependencies
