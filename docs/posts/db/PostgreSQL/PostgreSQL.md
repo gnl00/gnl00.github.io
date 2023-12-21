@@ -2749,6 +2749,42 @@ patronictl -c /etc/patroni.yml edit-config -p 'max_connections=300'
 
 …
 
+某次重启集群的时候出现了两个 Replica
+
+```shell
+postgres@ubt:/$ patronictl -c /etc/patroni.yml list
++ Cluster: pgsql (7293041961231008937) -+---------+----+-----------+
+| Member | Host               | Role    | State   | TL | Lag in MB |
++--------+--------------------+---------+---------+----+-----------+
+| pg1    | test1.my-dev.com | Replica | running | 20 |         0 |
+| pg2    | test2.my-dev.com | Replica | running | 20 |         0 |
++--------+--------------------+---------+---------+----+-----------+
+```
+
+此时只需要执行 `patronictl failover` 就能强制将某一个节点的角色提升
+
+```shell
+postgres@ubt:/$ patronictl -c /etc/patroni.yml failover
+Current cluster topology
++ Cluster: pgsql (7293041961231008937) -+---------+----+-----------+
+| Member | Host               | Role    | State   | TL | Lag in MB |
++--------+--------------------+---------+---------+----+-----------+
+| pg1    | test1.my-dev.com | Replica | running | 20 |         0 |
+| pg2    | test2.my-dev.com | Replica | running | 20 |         0 |
++--------+--------------------+---------+---------+----+-----------+
+Candidate ['pg1', 'pg2'] []: pg1
+Are you sure you want to failover cluster pgsql? [y/N]: y
+2023-12-07 14:16:40.36882 Successfully failed over to "pg1"
++ Cluster: pgsql (7293041961231008937) -+---------+----+-----------+
+| Member | Host               | Role    | State   | TL | Lag in MB |
++--------+--------------------+---------+---------+----+-----------+
+| pg1    | test1.my-dev.com | Leader  | running | 20 |           |
+| pg2    | test2.my-dev.com | Replica | running | 20 |         0 |
++--------+--------------------+---------+---------+----+-----------+
+```
+
+…
+
 ---
 
 ### 客户端连接
@@ -3014,6 +3050,16 @@ patronictl -c /etc/patroni.yml list | grep 192.168.111.12 | grep Leader > /dev/n
 ```
 
 上面脚本实现的功能是：如果当前节点是 Leader，将 VIP 漂移到当前机器。
+
+…
+
+> 使用 Patroni 其实还有另一种办法查看当前节点是不是主节点
+>
+> ```
+> curl -s http://127.0.0.1:8008/master -v 2>&1 | grep '200 OK' > /dev/null
+> ```
+>
+> …
 
 …
 
