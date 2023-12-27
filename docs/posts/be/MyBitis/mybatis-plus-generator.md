@@ -1,15 +1,10 @@
 ---
-description: MyBatis 代码生成器
-tag: 
-  - MyBatis
-  - 后端
+isPublish: false
 ---
-
 
 # mybatis-plus-generator
 
-
-## MyBatis Plus 代码生成器
+## 代码生成
 
 **依赖**
 
